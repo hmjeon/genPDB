@@ -1,0 +1,2 @@
+# AMG
+Atomic model generator
