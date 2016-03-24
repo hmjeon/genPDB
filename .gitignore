@@ -24,5 +24,15 @@
 
 # Executables
 *.exe
+!DNAcs/Library/gmsh.exe
+!DNAcs/Library/meshconv.exe
 *.out
 *.app
+DNAcs/Debug
+DNAcs/Release
+DNAcs/x64
+*.u2d
+DNAcs/Output
+.vs
+*.11
+*.101
