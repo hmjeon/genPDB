@@ -3,11 +3,9 @@
 % --------------------------------------------------
 clear all;
 close all;
-
-%% Step 1. Add MATLAB paths.
 addpath Source
 
-% Step 2. Assign colors for the DNA strands.
+%% Assign colors for the DNA strands.
 % If a strand contains less than 120 nucleotides,
 % then a color with the RGB value (190, 190, 190) is assigned to this strand.
 % Otherwise a color with the RGB value (204, 121, 167) is assigned.
@@ -15,38 +13,37 @@ param.StrandColor_red  = [190 190 190; 204 121 167];    % Red color staple
 param.StrandColor_blue = [190 190 190;  86 180 233];    % Blue color staple
 param.L_thres          = 120;
 
-%% Step 3. Assign the rendering resolution
-param.molmapResolution = 3;
-param.WindowSize = [600 600];
+%% Set parameters for rendering resolution and Chimera environments
+fid = fopen('Path_Chimera.txt');
+str = strtrim(fgetl(fid));
+fclose(fid);
 
-%% Step 4. Assign the path to UCSF Chimera.
-param.chimeraEXE = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
-param.chimeraOPTION = '--silent --script';
+param.molmapResolution = 3;
+param.WindowSize       = [600 600];
+param.chimeraEXE       = str;
+param.chimeraOPTION    = '--silent --script';
 
 %% Step 5. Set working environments and read input list
 fid = fopen('Input_List.txt');
-ss  = strtrim(fgetl(fid));
+str = strtrim(fgetl(fid));
 cn  = 0;
-
-while(~isempty(ss));
+while(~isempty(str));
     cn = cn + 1;
-    Name_prob{cn} = ss;
-    ss = strtrim(fgetl(fid));
-    
-    ss = fgetl(fid);
-    if(~ischar(ss))
+    name_prob{cn} = str;   
+    str = fgetl(fid);
+    if(~ischar(str))
         break;
     end
-    ss = strtrim(ss);
+    str = strtrim(str);
 end
-
-disp(Name_prob);
 fclose(fid);
-Input_path = 'cndo\';
+path_input = strcat('Input\', name_prob);
+path_input = strcat(path_input, '\');
 
 %% Step 6. Generate the atomic model
-for i = 1 : numel(Name_prob)
-    design_path = fullfile(Input_path, strcat(Name_prob{i}, '.cndo'));
-    work_path = strcat('Output\', Name_prob{i});
-    main_cndo2pdb(design_path, work_path, param);
+for i = 1 : numel(name_prob)
+    disp(name_prob{i})
+    path_input{i} = fullfile(path_input{i}, strcat(name_prob{i}, '.cndo'));
+    path_output{i} = strcat('Output\', name_prob{i});
+    main_cndo2pdb(path_input{i}, path_output{i}, param);
 end
