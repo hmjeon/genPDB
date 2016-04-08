@@ -97,11 +97,10 @@ pdb_path = fullfile(work_DIR, strcat(bodyFN,'.pdb'));
 pdbFinal = pdbGenerate(strand);
 pdbFinal = pdbModify_multimodel(pdbFinal);
 mypdbwrite_v2(pdb_path, pdbFinal);
-% mypdbwrite_v2_debug(pdb_path, pdbFinal);
 
 
 %% Render the PDB file
-%pdb2tif(pdb_path, bodyFN, strand, param);
+pdb2tif(pdb_path, bodyFN, strand, param);
 pdb2cmd(pdb_path, bodyFN, strand, param);
 
 end

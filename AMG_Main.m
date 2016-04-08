@@ -1,16 +1,23 @@
+% --------------------------------------------------
+% AMG : Atomic Model Generation
+% --------------------------------------------------
 clear all;
 close all;
 
 % Step 1. Add MATLAB paths.
 addpath Source
 
-% Step 2. Assign colors for the DNA strands. In this example, if a strand contains less than 100 nucleotides, then a color with the RGB value (190, 190, 190) is assigned to this strand. Otherwise a color with the RGB value (204, 121, 167) is assigned.
-param.StrandColor = [190 190 190; 86 180, 233];
-param.L_thres = 100;
+% Step 2. Assign colors for the DNA strands.
+% If a strand contains less than 120 nucleotides,
+% then a color with the RGB value (190, 190, 190) is assigned to this strand.
+% Otherwise a color with the RGB value (204, 121, 167) is assigned.
+param.StrandColor_red  = [190 190 190; 204 121 167];    % Red color staple
+param.StrandColor_blue = [190 190 190;  86 180 233];    % Blue color staple
+param.L_thres          = 120;
 
-% Step 3. Assign the rendering resolution (typically between 3 and 6) and figure size (typically 640-by-480).
+% Step 3. Assign the rendering resolution
 param.molmapResolution = 3;
-param.WindowSize = [640 480];
+param.WindowSize = [600 600];
 
 % Step 4. Assign the path to UCSF Chimera.
 param.chimeraEXE = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
@@ -19,8 +26,7 @@ param.chimeraOPTION = '--silent --script';
 % Step 5. Set working environments
 Input_path = 'Input\';
 Name_prob  = {  ...
-    'icosahedron_cando', ...
-    'icosahedron', ...
+    '4_junction', ...
 }
 
 % Step 5. Generate the atomic model
