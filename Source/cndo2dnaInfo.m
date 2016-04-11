@@ -3,9 +3,9 @@ function dnaInfo = cndo2dnaInfo(cndo_FN)
 tol = 1e-10;
 
 %% Initialization
-conn = zeros(0,5);      % id, up, down, across
-seq = cell(0,1);        % seq
-types = zeros(0,1);        % type
+conn  = zeros(0,5);     % id, up, down, across
+seq   = cell (0,1);     % seq
+types = zeros(0,1);     % type
 dNode = zeros(0,4);
 triad = zeros(0,10);
 id_nt = zeros(0,3);
@@ -32,9 +32,9 @@ while(~isempty(ss));
                          str2double(a{3}), ...
                          str2double(a{4}), ...
                          str2double(a{5})]);
-    seq = cat(1, seq, a(6));
+    seq   = cat(1, seq, a(6));
     types = cat(1, types, str2double(a{7}));
-    ss = strtrim(fgetl(fid));
+    ss    = strtrim(fgetl(fid));
 end
 
 % Read the field 'dNode'
@@ -109,12 +109,12 @@ for i = 1 : n_bp
 end
 
 for i = 1 : n_nt
-    dnaInfo.dnaTop(i) = struct('id', conn(i,1), ...
-                               'up', conn(i,2), ...
-                               'down', conn(i,3), ...
+    dnaInfo.dnaTop(i) = struct('id',     conn(i,1), ...
+                               'up',     conn(i,2), ...
+                               'down',   conn(i,3), ...
                                'across', conn(i,4), ...
-                               'seq', seq{i}, ...
-                               'types', types(i));
+                               'seq',    seq{i}, ...
+                               'types',  types(i));
     dnaInfo.dnaGeom.dNode = dNode;
     dnaInfo.dnaGeom.triad = triad2;
     dnaInfo.dnaGeom.id_nt = id_nt;

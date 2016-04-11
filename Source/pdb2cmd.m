@@ -1,9 +1,8 @@
 function [] = pdb2cmd(pdb_path, bodyFN, strand, sysParam)
 
-L_thres = sysParam.L_thres;  % staple: L < L_thres
-
 work_dir = fileparts(pdb_path);
 
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Generate the UCSF Chimera script & new rendering with red
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,7 +28,7 @@ fprintf(fid, 'runCommand(''~display'')\n');
 RGB_scaf = sysParam.StrandColor_red(1,:)/255;
 RGB_stap = sysParam.StrandColor_red(2,:)/255;
 for i = 1:numel(strand)
-    if(strand(i).types == 1)
+    if(strand(i).types == 0)
         RGB = RGB_scaf;
     else
         RGB = RGB_stap;
@@ -40,8 +39,9 @@ end
 
 fclose(fid);
 
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Generate the UCSF Chimera script & new rendering with red
+% Generate the UCSF Chimera script & new rendering with blue
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 chimeraScr = fullfile(work_dir, strcat(bodyFN, '_simple_blue.py'));
 fid = fopen(chimeraScr, 'w');
@@ -65,7 +65,7 @@ fprintf(fid, 'runCommand(''~display'')\n');
 RGB_scaf = sysParam.StrandColor_blue(1,:)/255;
 RGB_stap = sysParam.StrandColor_blue(2,:)/255;
 for i = 1:numel(strand)
-    if(strand(i).types == 1)
+    if(strand(i).types == 0)
         RGB = RGB_scaf;
     else
         RGB = RGB_stap;
@@ -76,6 +76,7 @@ end
 
 fclose(fid);
 
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Generate the UCSF Chimera script & multi color
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -103,7 +104,7 @@ nColor = size(strandColorList,1);
 nStrand = numel(strand);
 strandColor = zeros(nStrand,3);
 for i = 1:nStrand
-    if(strand(i).types == 1)
+    if(strand(i).types == 0)
         strandColor(i,:) = [0 102 204];
     else
         strandColor(i,:) = strandColorList(mod(i-1,nColor)+1,:);
@@ -117,6 +118,7 @@ end
 
 fclose(fid);
 
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Generate the cmd file
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

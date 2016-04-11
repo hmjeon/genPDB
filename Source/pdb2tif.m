@@ -1,7 +1,5 @@
 function [] = pdb2tif(pdb_path, bodyFN, strand, sysParam)
 
-L_thres = sysParam.L_thres;  % staple: L < L_thres
-
 work_dir = fileparts(pdb_path);
 tif_1_path = fullfile(work_dir, strcat(bodyFN, '_simple_red.tif'));
 tif_2_path = fullfile(work_dir, strcat(bodyFN, '_simple_red_x90.tif'));
@@ -34,11 +32,14 @@ fprintf(fid, 'runCommand(''scale 0.8'')\n');
 fprintf(fid, 'runCommand(''~ribbon'')\n');
 fprintf(fid, 'runCommand(''~display'')\n');
 
-% Use the new rendering
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Red color
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 RGB_scaf = sysParam.StrandColor_red(1,:)/255;
 RGB_stap = sysParam.StrandColor_red(2,:)/255;
 for i = 1:numel(strand)
-    if(strand(i).types == 1)
+    if(strand(i).types == 0)
         RGB = RGB_scaf;
     else
         RGB = RGB_stap;
@@ -65,11 +66,14 @@ fprintf(fid, 'runCommand(''copy file %s png supersample 3'')\n', strrep(tif_3_pa
 fprintf(fid, 'runCommand(''wait'')\n');
 fprintf(fid, 'runCommand(''turn y -90'')\n');
 
-% Use the new rendering
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Blue color
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 RGB_scaf = sysParam.StrandColor_blue(1,:)/255;
 RGB_stap = sysParam.StrandColor_blue(2,:)/255;
 for i = 1:numel(strand)
-    if(strand(i).types == 1)
+    if(strand(i).types == 0)
         RGB = RGB_scaf;
     else
         RGB = RGB_stap;
@@ -79,8 +83,6 @@ for i = 1:numel(strand)
 end
 
 % Save as .tif files
-%fprintf(fid, 'runCommand(''window'')\n');
-%fprintf(fid, 'runCommand(''scale 0.8'')\n');
 fprintf(fid, 'runCommand(''wait'')\n');
 
 fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_4_path,'\','/'));
@@ -96,13 +98,16 @@ fprintf(fid, 'runCommand(''copy file %s png supersample 3'')\n', strrep(tif_6_pa
 fprintf(fid, 'runCommand(''wait'')\n');
 fprintf(fid, 'runCommand(''turn y -90'')\n');
 
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % multi color
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 strandColorList = [184 5 108; 247 67 8; 3 182 162; 247 147 30; 204 0 0; 87 187 0; 0 114 0; 115 0 222];
 nColor = size(strandColorList,1);
 nStrand = numel(strand);
 strandColor = zeros(nStrand,3);
 for i = 1:nStrand
-    if(strand(i).types == 1)
+    if(strand(i).types == 0)
         strandColor(i,:) = [0 102 204];
     else
         strandColor(i,:) = strandColorList(mod(i-1,nColor)+1,:);
@@ -115,8 +120,6 @@ for i = 1:size(strandColor,1)
 end
 
 % Save as .tif files
-%fprintf(fid, 'runCommand(''window'')\n');
-%fprintf(fid, 'runCommand(''scale 0.8'')\n');
 fprintf(fid, 'runCommand(''wait'')\n');
 
 fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_7_path,'\','/'));

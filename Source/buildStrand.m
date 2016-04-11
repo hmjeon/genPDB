@@ -26,11 +26,11 @@ while(~isempty(find(~isVisited,1)))
         error('Exception.');
     end
     
-    % Strand types
+    % Set strand type
     if(currBase.types==0)
-        strand(iStrand).types = 1;
-    else
         strand(iStrand).types = 0;
+    else
+        strand(iStrand).types = 1;
     end
     
     % Walk through the current strand

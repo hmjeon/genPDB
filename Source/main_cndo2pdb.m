@@ -32,14 +32,14 @@ mkdir(work_DIR);
 
 % Extract individual fields from 'dnaInfo'
 dnaTop = dnaInfo.dnaTop;
-dNode = dnaInfo.dnaGeom.dNode;
-triad = dnaInfo.dnaGeom.triad;
-id_nt = dnaInfo.dnaGeom.id_nt;
+dNode  = dnaInfo.dnaGeom.dNode;
+triad  = dnaInfo.dnaGeom.triad;
+id_nt  = dnaInfo.dnaGeom.id_nt;
 clear dnaInfo
 
 
 %% Render the CAD design
-render_CAD(fullfile(work_DIR, strcat(bodyFN, '.bild')), dNode, triad, zeros(0,2), zeros(0,2));
+%render_CAD(fullfile(work_DIR, strcat(bodyFN, '.bild')), dNode, triad, zeros(0,2), zeros(0,2));
 
 
 %% Build strands
