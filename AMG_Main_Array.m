@@ -8,7 +8,6 @@ addpath Source
 %% Assign colors for the DNA strands.
 param.StrandColor_red  = [190 190 190; 204 121 167];    % Red color staple
 param.StrandColor_blue = [190 190 190;  86 180 233];    % Blue color staple
-param.L_thres          = 100;
 
 %% Set parameters for rendering resolution and Chimera environments
 param.molmapResolution = 3;
