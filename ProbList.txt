@@ -1,2 +1,0 @@
-cube_2_2_2
-tetrahedron_2_2_2

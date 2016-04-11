@@ -100,7 +100,12 @@ mypdbwrite_v2(pdb_path, pdbFinal);
 
 
 %% Render the PDB file
-pdb2tif(pdb_path, bodyFN, strand, param);
-pdb2cmd(pdb_path, bodyFN, strand, param);
-
+if(param.fileType == 'cmd')
+    pdb2cmd(pdb_path, bodyFN, strand, param);
+elseif(param.fileType == 'tif')
+    pdb2tif(pdb_path, bodyFN, strand, param);
+elseif(param.fileType == 'all')
+    pdb2tif(pdb_path, bodyFN, strand, param);
+    pdb2cmd(pdb_path, bodyFN, strand, param);
+end
 end
