@@ -25,7 +25,14 @@ while(~isempty(find(~isVisited,1)))
     else
         error('Exception.');
     end
-        
+    
+    % Strand types
+    if(currBase.types==0)
+        strand(iStrand).types = 1;
+    else
+        strand(iStrand).types = 0;
+    end
+    
     % Walk through the current strand
     iResidue = 1;
     strand(iStrand).tour = currBase.id;

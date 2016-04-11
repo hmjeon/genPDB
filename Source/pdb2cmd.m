@@ -29,7 +29,7 @@ fprintf(fid, 'runCommand(''~display'')\n');
 RGB_scaf = sysParam.StrandColor_red(1,:)/255;
 RGB_stap = sysParam.StrandColor_red(2,:)/255;
 for i = 1:numel(strand)
-    if(numel(strand(i).tour) >= L_thres)
+    if(strand(i).types == 1)
         RGB = RGB_scaf;
     else
         RGB = RGB_stap;
@@ -65,7 +65,7 @@ fprintf(fid, 'runCommand(''~display'')\n');
 RGB_scaf = sysParam.StrandColor_blue(1,:)/255;
 RGB_stap = sysParam.StrandColor_blue(2,:)/255;
 for i = 1:numel(strand)
-    if(numel(strand(i).tour) >= L_thres)
+    if(strand(i).types == 1)
         RGB = RGB_scaf;
     else
         RGB = RGB_stap;
@@ -98,12 +98,16 @@ fprintf(fid, 'runCommand(''~ribbon'')\n');
 fprintf(fid, 'runCommand(''~display'')\n');
 
 % multi color
-strandColorList = [0 102 204; 184 5 108; 247 67 8; 3 182 162; 247 147 30; 204 0 0; 87 187 0; 0 114 0; 115 0 222];
+strandColorList = [184 5 108; 247 67 8; 3 182 162; 247 147 30; 204 0 0; 87 187 0; 0 114 0; 115 0 222];
 nColor = size(strandColorList,1);
 nStrand = numel(strand);
 strandColor = zeros(nStrand,3);
 for i = 1:nStrand
-    strandColor(i,:) = strandColorList(mod(i-1,nColor)+1,:);
+    if(strand(i).types == 1)
+        strandColor(i,:) = [0 102 204];
+    else
+        strandColor(i,:) = strandColorList(mod(i-1,nColor)+1,:);
+    end
 end
 for i = 1:size(strandColor,1)
     RGB = strandColor(i,:)/255;

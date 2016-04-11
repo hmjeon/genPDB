@@ -14,36 +14,17 @@ param.StrandColor_blue = [190 190 190;  86 180 233];    % Blue color staple
 param.L_thres          = 120;
 
 %% Set parameters for rendering resolution and Chimera environments
-fid = fopen('Path_Chimera.txt');
-str = strtrim(fgetl(fid));
-fclose(fid);
-
 param.molmapResolution = 3;
 param.WindowSize       = [600 600];
-param.chimeraEXE       = str;
+param.chimeraEXE       = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
 param.chimeraOPTION    = '--silent --script';
 
 %% Step 5. Set working environments and read input list
-fid = fopen('Input_List.txt');
-str = strtrim(fgetl(fid));
-cn  = 0;
-while(~isempty(str));
-    cn = cn + 1;
-    name_prob{cn} = str;   
-    str = fgetl(fid);
-    if(~ischar(str))
-        break;
-    end
-    str = strtrim(str);
-end
-fclose(fid);
-path_input = strcat('Input\', name_prob);
-path_input = strcat(path_input, '\');
+name_prob  = { 'cube_2_2_2_-1' }
 
 %% Step 6. Generate the atomic model
 for i = 1 : numel(name_prob)
-    disp(name_prob{i})
-    path_input{i} = fullfile(path_input{i}, strcat(name_prob{i}, '.cndo'));
+    path_input{i} = fullfile('Input\', strcat(name_prob{i}, '.cndo'));
     path_output{i} = strcat('Output\', name_prob{i});
     main_cndo2pdb(path_input{i}, path_output{i}, param);
 end

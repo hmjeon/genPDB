@@ -5,6 +5,7 @@ tol = 1e-10;
 %% Initialization
 conn = zeros(0,5);      % id, up, down, across
 seq = cell(0,1);        % seq
+types = zeros(0,1);        % type
 dNode = zeros(0,4);
 triad = zeros(0,10);
 id_nt = zeros(0,3);
@@ -25,13 +26,14 @@ assert(strcmp(ss(1:6), 'dnaTop'));
 ss = strtrim(fgetl(fid));
 while(~isempty(ss));
     a = strsplit(ss, ',');
-    assert(numel(a) == 6);
+    assert(numel(a) == 7);
     conn = cat(1, conn, [str2double(a{1}), ...
                          str2double(a{2}), ...
                          str2double(a{3}), ...
                          str2double(a{4}), ...
                          str2double(a{5})]);
     seq = cat(1, seq, a(6));
+    types = cat(1, types, str2double(a{7}));
     ss = strtrim(fgetl(fid));
 end
 
@@ -111,7 +113,8 @@ for i = 1 : n_nt
                                'up', conn(i,2), ...
                                'down', conn(i,3), ...
                                'across', conn(i,4), ...
-                               'seq', seq{i});
+                               'seq', seq{i}, ...
+                               'types', types(i));
     dnaInfo.dnaGeom.dNode = dNode;
     dnaInfo.dnaGeom.triad = triad2;
     dnaInfo.dnaGeom.id_nt = id_nt;
