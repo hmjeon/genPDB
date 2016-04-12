@@ -14,9 +14,10 @@ param.molmapResolution = 3;
 param.WindowSize       = [600 600];
 param.chimeraEXE       = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
 param.chimeraOPTION    = '--silent --script';
+param.fileType         = 'all';      % cmd / tif / all
 
 %% Step 5. Set problem name with array
-name_prob = { 'tetrahedron_2_2_2' }
+name_prob = { 'cube_2_2_2' }
 
 %% Step 6. Generate the atomic model
 for i = 1 : numel(name_prob)
