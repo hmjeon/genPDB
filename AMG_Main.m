@@ -21,7 +21,10 @@ name_prob = { 'cube_2_2_2' }
 
 %% Step 6. Generate the atomic model
 for i = 1 : numel(name_prob)
+    tic;
+    disp(strcat('Problem name : ', name_prob{i}))
     path_input{i}  = fullfile('Input\', strcat(name_prob{i}, '.cndo'));
     path_output{i} = strcat('Output\', name_prob{i});
     main_cndo2pdb(path_input{i}, path_output{i}, param);
+    toc;
 end

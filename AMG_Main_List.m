@@ -21,8 +21,11 @@ name_prob = ReadProbList;
 
 %% Step 6. Generate the atomic model
 for i = 1 : numel(name_prob)
+    tic;
+    disp(strcat('Problem name : ', name_prob{i}))
     path_input{i}  = strcat('Input\', name_prob{i});
-    path_input{i}  = fullfile(path_input{i}, strcat(name_prob{i}, '.cndo'))
+    path_input{i}  = fullfile(path_input{i}, strcat(name_prob{i}, '.cndo'));
     path_output{i} = strcat('Output\', name_prob{i});
     main_cndo2pdb(path_input{i}, path_output{i}, param);
+    toc
 end
