@@ -6,7 +6,7 @@ work_dir = fileparts(pdb_path);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Generate the UCSF Chimera script & new rendering with red
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-chimeraScr = fullfile(work_dir, strcat(bodyFN, '_simple_red.py'));
+chimeraScr = fullfile(work_dir, strcat(bodyFN, '_red.py'));
 fid = fopen(chimeraScr, 'w');
 % Import the Python interface
 fprintf(fid,'from chimera import runCommand\n');
@@ -18,7 +18,7 @@ fprintf(fid, 'runCommand(''open %s'')\n', strcat(bodyFN, '.pdb'));
 fprintf(fid, 'runCommand(''windowsize %d %d'')\n', sysParam.WindowSize(1), sysParam.WindowSize(2));
 fprintf(fid, 'runCommand(''preset apply publication 3'')\n');
 fprintf(fid, 'runCommand(''window'')\n');
-fprintf(fid, 'runCommand(''scale 0.8'')\n');
+fprintf(fid, 'runCommand(''scale 1.0'')\n');
 
 % Turn off the original rendering
 fprintf(fid, 'runCommand(''~ribbon'')\n');
@@ -37,13 +37,24 @@ for i = 1:numel(strand)
     fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step 1'')\n', i, RGB(1), RGB(2), RGB(3));
 end
 
+if(sysParam.view == 'XZ')
+    fprintf(fid, 'runCommand(''turn x -90'')\n');
+elseif(sysParam.view == 'YZ')
+    fprintf(fid, 'runCommand(''turn x -90'')\n');
+    fprintf(fid, 'runCommand(''turn y -90'')\n');
+elseif(sysParam.view == 'XYZ')
+    fprintf(fid, 'runCommand(''turn x -90'')\n');
+    fprintf(fid, 'runCommand(''turn y -120'')\n');
+    fprintf(fid, 'runCommand(''turn x 35'')\n');
+end
+
 fclose(fid);
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Generate the UCSF Chimera script & new rendering with blue
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-chimeraScr = fullfile(work_dir, strcat(bodyFN, '_simple_blue.py'));
+chimeraScr = fullfile(work_dir, strcat(bodyFN, '_blue.py'));
 fid = fopen(chimeraScr, 'w');
 % Import the Python interface
 fprintf(fid,'from chimera import runCommand\n');
@@ -55,7 +66,7 @@ fprintf(fid, 'runCommand(''open %s'')\n', strcat(bodyFN, '.pdb'));
 fprintf(fid, 'runCommand(''windowsize %d %d'')\n', sysParam.WindowSize(1), sysParam.WindowSize(2));
 fprintf(fid, 'runCommand(''preset apply publication 3'')\n');
 fprintf(fid, 'runCommand(''window'')\n');
-fprintf(fid, 'runCommand(''scale 0.8'')\n');
+fprintf(fid, 'runCommand(''scale 1.0'')\n');
 
 % Turn off the original rendering
 fprintf(fid, 'runCommand(''~ribbon'')\n');
@@ -72,6 +83,17 @@ for i = 1:numel(strand)
     end
     fprintf(fid, 'runCommand(''molmap #0.%d %d'')\n', i, sysParam.molmapResolution);
     fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step 1'')\n', i, RGB(1), RGB(2), RGB(3));
+end
+
+if(sysParam.view == 'XZ')
+    fprintf(fid, 'runCommand(''turn x -90'')\n');
+elseif(sysParam.view == 'YZ')
+    fprintf(fid, 'runCommand(''turn x -90'')\n');
+    fprintf(fid, 'runCommand(''turn y -90'')\n');
+elseif(sysParam.view == 'XYZ')
+    fprintf(fid, 'runCommand(''turn x -90'')\n');
+    fprintf(fid, 'runCommand(''turn y -120'')\n');
+    fprintf(fid, 'runCommand(''turn x 35'')\n');
 end
 
 fclose(fid);
@@ -92,7 +114,7 @@ fprintf(fid, 'runCommand(''open %s'')\n', strcat(bodyFN, '.pdb'));
 fprintf(fid, 'runCommand(''windowsize %d %d'')\n', sysParam.WindowSize(1), sysParam.WindowSize(2));
 fprintf(fid, 'runCommand(''preset apply publication 3'')\n');
 fprintf(fid, 'runCommand(''window'')\n');
-fprintf(fid, 'runCommand(''scale 0.8'')\n');
+fprintf(fid, 'runCommand(''scale 1.0'')\n');
 
 % Turn off the original rendering
 fprintf(fid, 'runCommand(''~ribbon'')\n');
@@ -116,22 +138,33 @@ for i = 1:size(strandColor,1)
     fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step 1'')\n', i, RGB(1), RGB(2), RGB(3));
 end
 
+if(sysParam.view == 'XZ')
+    fprintf(fid, 'runCommand(''turn x -90'')\n');
+elseif(sysParam.view == 'YZ')
+    fprintf(fid, 'runCommand(''turn x -90'')\n');
+    fprintf(fid, 'runCommand(''turn y -90'')\n');
+elseif(sysParam.view == 'XYZ')
+    fprintf(fid, 'runCommand(''turn x -90'')\n');
+    fprintf(fid, 'runCommand(''turn y -120'')\n');
+    fprintf(fid, 'runCommand(''turn x 35'')\n');
+end
+
 fclose(fid);
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Generate the cmd file
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-cmd_path = fullfile(work_dir, strcat(bodyFN, '_simple_red.cmd'));
+cmd_path = fullfile(work_dir, strcat(bodyFN, '_red.cmd'));
 fid = fopen(cmd_path, 'w');
 fprintf(fid,'@echo off\n');
-fprintf(fid, '%s --script %s\n', strrep(sysParam.chimeraEXE,'\','/'), strcat(bodyFN, '_simple_red.py'));
+fprintf(fid, '%s --script %s\n', strrep(sysParam.chimeraEXE,'\','/'), strcat(bodyFN, '_red.py'));
 fclose(fid);
 
-cmd_path = fullfile(work_dir, strcat(bodyFN, '_simple_blue.cmd'));
+cmd_path = fullfile(work_dir, strcat(bodyFN, '_blue.cmd'));
 fid = fopen(cmd_path, 'w');
 fprintf(fid,'@echo off\n');
-fprintf(fid, '%s --script %s\n', strrep(sysParam.chimeraEXE,'\','/'), strcat(bodyFN, '_simple_blue.py'));
+fprintf(fid, '%s --script %s\n', strrep(sysParam.chimeraEXE,'\','/'), strcat(bodyFN, '_blue.py'));
 fclose(fid);
 
 cmd_path = fullfile(work_dir, strcat(bodyFN, '_multi.cmd'));

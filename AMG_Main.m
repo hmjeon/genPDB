@@ -17,7 +17,7 @@ param.chimeraOPTION    = '--silent --script';
 param.fileType         = 'all';      % cmd / tif / all
 
 %% Step 5. Set problem name with array
-name_prob = { 'cube_2_2_2' }
+name_prob = { '01_tetrahedron_1_32_2_0' }
 
 %% Step 6. Generate the atomic model
 for i = 1 : numel(name_prob)

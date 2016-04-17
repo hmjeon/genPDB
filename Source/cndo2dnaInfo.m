@@ -1,8 +1,9 @@
-function dnaInfo = cndo2dnaInfo(cndo_FN)
+function [dnaInfo, param] = cndo2dnaInfo(cndo_FN, param)
 
 tol = 1e-10;
 
 %% Initialization
+view  = cell (0,1);     % view
 conn  = zeros(0,5);     % id, up, down, across
 seq   = cell (0,1);     % seq
 types = zeros(0,1);     % type
@@ -19,6 +20,10 @@ for i = 1 : 2
     ss = strtrim(fgetl(fid));
     assert(ischar(ss));
 end
+
+% Read view
+view = strtrim(fgetl(fid));
+ss = strtrim(fgetl(fid));
 
 % Read the field 'dnaTop'
 ss = strtrim(fgetl(fid));
@@ -114,10 +119,13 @@ for i = 1 : n_nt
                                'down',   conn(i,3), ...
                                'across', conn(i,4), ...
                                'seq',    seq{i}, ...
-                               'types',  types(i));
+                               'types',  types(i));, ...
+                                
     dnaInfo.dnaGeom.dNode = dNode;
     dnaInfo.dnaGeom.triad = triad2;
     dnaInfo.dnaGeom.id_nt = id_nt;
 end
+
+param.view = view;
 
 end
