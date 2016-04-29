@@ -37,12 +37,12 @@ for i = 1:numel(strand)
     fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step 1'')\n', i, RGB(1), RGB(2), RGB(3));
 end
 
-if(sysParam.view == 'XZ')
+if(strcmp(sysParam.view, 'XZ'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
-elseif(sysParam.view == 'YZ')
+elseif(strcmp(sysParam.view, 'YZ'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -90'')\n');
-elseif(sysParam.view == 'XYZ')
+elseif(strcmp(sysParam.view, 'XYZ'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -120'')\n');
     fprintf(fid, 'runCommand(''turn x 35'')\n');
@@ -85,12 +85,12 @@ for i = 1:numel(strand)
     fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step 1'')\n', i, RGB(1), RGB(2), RGB(3));
 end
 
-if(sysParam.view == 'XZ')
+if(strcmp(sysParam.view, 'XZ'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
-elseif(sysParam.view == 'YZ')
+elseif(strcmp(sysParam.view, 'YZ'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -90'')\n');
-elseif(sysParam.view == 'XYZ')
+elseif(strcmp(sysParam.view, 'XYZ'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -120'')\n');
     fprintf(fid, 'runCommand(''turn x 35'')\n');
@@ -138,12 +138,12 @@ for i = 1:size(strandColor,1)
     fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step 1'')\n', i, RGB(1), RGB(2), RGB(3));
 end
 
-if(sysParam.view == 'XZ')
+if(strcmp(sysParam.view, 'XZ'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
-elseif(sysParam.view == 'YZ')
+elseif(strcmp(sysParam.view, 'YZ'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -90'')\n');
-elseif(sysParam.view == 'XYZ')
+elseif(strcmp(sysParam.view, 'XYZ'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -120'')\n');
     fprintf(fid, 'runCommand(''turn x 35'')\n');

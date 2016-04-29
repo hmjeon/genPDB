@@ -2,19 +2,19 @@ function [] = pdb2tif(pdb_path, bodyFN, strand, sysParam)
 
 work_dir = fileparts(pdb_path);
 
-if(sysParam.view == 'XY')
+if(strcmp(sysParam.view, 'XY'))
     tif_1_path = fullfile(work_dir, strcat(bodyFN, '_red_XY.tif'));
     tif_2_path = fullfile(work_dir, strcat(bodyFN, '_blue_XY.tif'));
     tif_3_path = fullfile(work_dir, strcat(bodyFN, '_multi_XY.tif'));
-elseif(sysParam.view == 'XZ')
+elseif(strcmp(sysParam.view, 'XZ'))
     tif_1_path = fullfile(work_dir, strcat(bodyFN, '_red_XZ.tif'));
     tif_2_path = fullfile(work_dir, strcat(bodyFN, '_blue_XZ.tif'));
     tif_3_path = fullfile(work_dir, strcat(bodyFN, '_multi_XZ.tif'));
-elseif(sysParam.view == 'YZ')
+elseif(strcmp(sysParam.view, 'YZ'))
     tif_1_path = fullfile(work_dir, strcat(bodyFN, '_red_YZ.tif'));
     tif_2_path = fullfile(work_dir, strcat(bodyFN, '_blue_YZ.tif'));
     tif_3_path = fullfile(work_dir, strcat(bodyFN, '_multi_YZ.tif'));
-elseif(sysParam.view == 'XYZ')
+elseif(strcmp(sysParam.view, 'XYZ'))
     tif_1_path = fullfile(work_dir, strcat(bodyFN, '_red_XYZ.tif'));
     tif_2_path = fullfile(work_dir, strcat(bodyFN, '_blue_XYZ.tif'));
     tif_3_path = fullfile(work_dir, strcat(bodyFN, '_multi_XYZ.tif'));
@@ -58,17 +58,17 @@ for i = 1:numel(strand)
 end
 
 % Save as .tif files
-if(sysParam.view == 'XY')
+if(strcmp(sysParam.view, 'XY'))
     fprintf(fid, 'runCommand(''window'')\n');
     fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_1_path,'\','/'));
-elseif(sysParam.view == 'XZ')
+elseif(strcmp(sysParam.view, 'XZ'))
     fprintf(fid, 'runCommand(''window'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_1_path,'\','/'));
     fprintf(fid, 'runCommand(''turn x 90'')\n');
-elseif(sysParam.view == 'YZ')
+elseif(strcmp(sysParam.view, 'YZ'))
     fprintf(fid, 'runCommand(''window'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -90'')\n');
@@ -76,8 +76,8 @@ elseif(sysParam.view == 'YZ')
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_1_path,'\','/'));
     fprintf(fid, 'runCommand(''turn y 90'')\n');
     fprintf(fid, 'runCommand(''turn x 90'')\n');
-elseif(sysParam.view == 'XYZ')
-    fprintf(fid, 'runCommand(''window'')\n');
+elseif(strcmp(sysParam.view, 'XYZ'))
+    fprintf(fid, 'runCommand(''window'')\n')
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -120'')\n');
     fprintf(fid, 'runCommand(''turn x 35'')\n');
@@ -106,17 +106,17 @@ for i = 1:numel(strand)
 end
 
 % Save as .tif files
-if(sysParam.view == 'XY')
+if(strcmp(sysParam.view, 'XY'))
     fprintf(fid, 'runCommand(''window'')\n');
     fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_2_path,'\','/'));
-elseif(sysParam.view == 'XZ')
+elseif(strcmp(sysParam.view, 'XZ'))
     fprintf(fid, 'runCommand(''window'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_2_path,'\','/'));
     fprintf(fid, 'runCommand(''turn x 90'')\n');
-elseif(sysParam.view == 'YZ')
+elseif(strcmp(sysParam.view, 'YZ'))
     fprintf(fid, 'runCommand(''window'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -90'')\n');
@@ -124,7 +124,7 @@ elseif(sysParam.view == 'YZ')
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_2_path,'\','/'));
     fprintf(fid, 'runCommand(''turn y 90'')\n');
     fprintf(fid, 'runCommand(''turn x 90'')\n');
-elseif(sysParam.view == 'XYZ')
+elseif(strcmp(sysParam.view, 'XYZ'))
     fprintf(fid, 'runCommand(''window'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -120'')\n');
@@ -158,17 +158,17 @@ for i = 1:size(strandColor,1)
 end
 
 % Save as .tif files
-if(sysParam.view == 'XY')
+if(strcmp(sysParam.view, 'XY'))
     fprintf(fid, 'runCommand(''window'')\n');
     fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_3_path,'\','/'));
-elseif(sysParam.view == 'XZ')
+elseif(strcmp(sysParam.view, 'XZ'))
     fprintf(fid, 'runCommand(''window'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_3_path,'\','/'));
     fprintf(fid, 'runCommand(''turn x 90'')\n');
-elseif(sysParam.view == 'YZ')
+elseif(strcmp(sysParam.view, 'YZ'))
     fprintf(fid, 'runCommand(''window'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -90'')\n');
@@ -176,7 +176,7 @@ elseif(sysParam.view == 'YZ')
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_3_path,'\','/'));
     fprintf(fid, 'runCommand(''turn y 90'')\n');
     fprintf(fid, 'runCommand(''turn x 90'')\n');
-elseif(sysParam.view == 'XYZ')
+elseif(strcmp(sysParam.view, 'XYZ'))
     fprintf(fid, 'runCommand(''window'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -120'')\n');
