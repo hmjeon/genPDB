@@ -39,7 +39,7 @@ clear dnaInfo
 
 
 %% Render the CAD design
-%render_CAD(fullfile(work_DIR, strcat(bodyFN, '.bild')), dNode, triad, zeros(0,2), zeros(0,2));
+render_CAD(fullfile(work_DIR, strcat(bodyFN, '.bild')), dNode, triad, zeros(0,2), zeros(0,2));
 
 
 %% Build strands
@@ -80,16 +80,16 @@ for i = 1 : size(id_nt,1)
 end
 
 % Create bulges
-for i = 1:numel(strand)
-    [strand(i).R, strand(i).d, strand(i).isMain] = generateBulgeDOF(strand(i).R, strand(i).d, strand(i).isMain, strand(i).isCircular);
-    for j = 1:numel(strand(i).seq)
-        if(strcmp(strand(i).seq(j), 'N'))
-            tmp = strand(i).tour(j);
-            assert(dnaTop(tmp).across == -1);
-            strand(i).seq(j) = dnaTop(tmp).seq;
-        end
-    end
-end
+%for i = 1:numel(strand)
+%    [strand(i).R, strand(i).d, strand(i).isMain] = generateBulgeDOF(strand(i).R, strand(i).d, strand(i).isMain, strand(i).isCircular);
+%    for j = 1:numel(strand(i).seq)
+%        if(strcmp(strand(i).seq(j), 'N'))
+%            tmp = strand(i).tour(j);
+%            assert(dnaTop(tmp).across == -1);
+%            strand(i).seq(j) = dnaTop(tmp).seq;
+%        end
+%    end
+%end
 
 
 %% Create the PDB file

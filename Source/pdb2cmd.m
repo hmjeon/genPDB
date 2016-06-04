@@ -4,9 +4,9 @@ work_dir = fileparts(pdb_path);
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Generate the UCSF Chimera script & new rendering with red
+% Generate the UCSF Chimera script
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-chimeraScr = fullfile(work_dir, strcat(bodyFN, '_red.py'));
+chimeraScr = fullfile(work_dir, strcat(bodyFN, '.py'));
 fid = fopen(chimeraScr, 'w');
 % Import the Python interface
 fprintf(fid,'from chimera import runCommand\n');
@@ -18,15 +18,15 @@ fprintf(fid, 'runCommand(''open %s'')\n', strcat(bodyFN, '.pdb'));
 fprintf(fid, 'runCommand(''windowsize %d %d'')\n', sysParam.WindowSize(1), sysParam.WindowSize(2));
 fprintf(fid, 'runCommand(''preset apply publication 3'')\n');
 fprintf(fid, 'runCommand(''window'')\n');
-fprintf(fid, 'runCommand(''scale 1.0'')\n');
+fprintf(fid, 'runCommand(''scale 0.8'')\n');
 
 % Turn off the original rendering
 fprintf(fid, 'runCommand(''~ribbon'')\n');
 fprintf(fid, 'runCommand(''~display'')\n');
 
 % Use the new rendering
-RGB_scaf = sysParam.StrandColor_red(1,:)/255;
-RGB_stap = sysParam.StrandColor_red(2,:)/255;
+RGB_scaf = sysParam.StrandColor(1,:)/255;
+RGB_stap = sysParam.StrandColor(2,:)/255;
 for i = 1:numel(strand)
     if(strand(i).types == 0)
         RGB = RGB_scaf;
@@ -34,107 +34,6 @@ for i = 1:numel(strand)
         RGB = RGB_stap;
     end
     fprintf(fid, 'runCommand(''molmap #0.%d %d'')\n', i, sysParam.molmapResolution);
-    fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step 1'')\n', i, RGB(1), RGB(2), RGB(3));
-end
-
-if(strcmp(sysParam.view, 'XZ'))
-    fprintf(fid, 'runCommand(''turn x -90'')\n');
-elseif(strcmp(sysParam.view, 'YZ'))
-    fprintf(fid, 'runCommand(''turn x -90'')\n');
-    fprintf(fid, 'runCommand(''turn y -90'')\n');
-elseif(strcmp(sysParam.view, 'XYZ'))
-    fprintf(fid, 'runCommand(''turn x -90'')\n');
-    fprintf(fid, 'runCommand(''turn y -120'')\n');
-    fprintf(fid, 'runCommand(''turn x 35'')\n');
-end
-
-fclose(fid);
-
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Generate the UCSF Chimera script & new rendering with blue
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-chimeraScr = fullfile(work_dir, strcat(bodyFN, '_blue.py'));
-fid = fopen(chimeraScr, 'w');
-% Import the Python interface
-fprintf(fid,'from chimera import runCommand\n');
-
-% Open the PDB file
-fprintf(fid, 'runCommand(''open %s'')\n', strcat(bodyFN, '.pdb'));
-
-% Set the environment
-fprintf(fid, 'runCommand(''windowsize %d %d'')\n', sysParam.WindowSize(1), sysParam.WindowSize(2));
-fprintf(fid, 'runCommand(''preset apply publication 3'')\n');
-fprintf(fid, 'runCommand(''window'')\n');
-fprintf(fid, 'runCommand(''scale 1.0'')\n');
-
-% Turn off the original rendering
-fprintf(fid, 'runCommand(''~ribbon'')\n');
-fprintf(fid, 'runCommand(''~display'')\n');
-
-% Use the new rendering
-RGB_scaf = sysParam.StrandColor_blue(1,:)/255;
-RGB_stap = sysParam.StrandColor_blue(2,:)/255;
-for i = 1:numel(strand)
-    if(strand(i).types == 0)
-        RGB = RGB_scaf;
-    else
-        RGB = RGB_stap;
-    end
-    fprintf(fid, 'runCommand(''molmap #0.%d %d'')\n', i, sysParam.molmapResolution);
-    fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step 1'')\n', i, RGB(1), RGB(2), RGB(3));
-end
-
-if(strcmp(sysParam.view, 'XZ'))
-    fprintf(fid, 'runCommand(''turn x -90'')\n');
-elseif(strcmp(sysParam.view, 'YZ'))
-    fprintf(fid, 'runCommand(''turn x -90'')\n');
-    fprintf(fid, 'runCommand(''turn y -90'')\n');
-elseif(strcmp(sysParam.view, 'XYZ'))
-    fprintf(fid, 'runCommand(''turn x -90'')\n');
-    fprintf(fid, 'runCommand(''turn y -120'')\n');
-    fprintf(fid, 'runCommand(''turn x 35'')\n');
-end
-
-fclose(fid);
-
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Generate the UCSF Chimera script & multi color
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-chimeraScr = fullfile(work_dir, strcat(bodyFN, '_multi.py'));
-fid = fopen(chimeraScr, 'w');
-% Import the Python interface
-fprintf(fid,'from chimera import runCommand\n');
-
-% Open the PDB file
-fprintf(fid, 'runCommand(''open %s'')\n', strcat(bodyFN, '.pdb'));
-
-% Set the environment
-fprintf(fid, 'runCommand(''windowsize %d %d'')\n', sysParam.WindowSize(1), sysParam.WindowSize(2));
-fprintf(fid, 'runCommand(''preset apply publication 3'')\n');
-fprintf(fid, 'runCommand(''window'')\n');
-fprintf(fid, 'runCommand(''scale 1.0'')\n');
-
-% Turn off the original rendering
-fprintf(fid, 'runCommand(''~ribbon'')\n');
-fprintf(fid, 'runCommand(''~display'')\n');
-
-% multi color
-strandColorList = [184 5 108; 247 67 8; 3 182 162; 247 147 30; 204 0 0; 87 187 0; 0 114 0; 115 0 222];
-nColor = size(strandColorList,1);
-nStrand = numel(strand);
-strandColor = zeros(nStrand,3);
-for i = 1:nStrand
-    if(strand(i).types == 0)
-        strandColor(i,:) = [0 102 204];
-    else
-        strandColor(i,:) = strandColorList(mod(i-1,nColor)+1,:);
-    end
-end
-for i = 1:size(strandColor,1)
-    RGB = strandColor(i,:)/255;
-    fprintf(fid, 'runCommand(''molmap #0.%d 3'')\n', i);
     fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step 1'')\n', i, RGB(1), RGB(2), RGB(3));
 end
 
@@ -155,22 +54,10 @@ fclose(fid);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Generate the cmd file
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-cmd_path = fullfile(work_dir, strcat(bodyFN, '_red.cmd'));
+cmd_path = fullfile(work_dir, strcat(bodyFN, '.cmd'));
 fid = fopen(cmd_path, 'w');
 fprintf(fid,'@echo off\n');
-fprintf(fid, '%s --script %s\n', strrep(sysParam.chimeraEXE,'\','/'), strcat(bodyFN, '_red.py'));
-fclose(fid);
-
-cmd_path = fullfile(work_dir, strcat(bodyFN, '_blue.cmd'));
-fid = fopen(cmd_path, 'w');
-fprintf(fid,'@echo off\n');
-fprintf(fid, '%s --script %s\n', strrep(sysParam.chimeraEXE,'\','/'), strcat(bodyFN, '_blue.py'));
-fclose(fid);
-
-cmd_path = fullfile(work_dir, strcat(bodyFN, '_multi.cmd'));
-fid = fopen(cmd_path, 'w');
-fprintf(fid,'@echo off\n');
-fprintf(fid, '%s --script %s\n', strrep(sysParam.chimeraEXE,'\','/'), strcat(bodyFN, '_multi.py'));
+fprintf(fid, '%s --script %s\n', strrep(sysParam.chimeraEXE,'\','/'), strcat(bodyFN, '.py'));
 fclose(fid);
 
 end
