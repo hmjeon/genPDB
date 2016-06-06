@@ -80,16 +80,18 @@ for i = 1 : size(id_nt,1)
 end
 
 % Create bulges
-%for i = 1:numel(strand)
-%    [strand(i).R, strand(i).d, strand(i).isMain] = generateBulgeDOF(strand(i).R, strand(i).d, strand(i).isMain, strand(i).isCircular);
-%    for j = 1:numel(strand(i).seq)
-%        if(strcmp(strand(i).seq(j), 'N'))
-%            tmp = strand(i).tour(j);
-%            assert(dnaTop(tmp).across == -1);
-%            strand(i).seq(j) = dnaTop(tmp).seq;
-%        end
-%    end
-%end
+if(param.bulge == 'yes')
+    for i = 1:numel(strand)
+        [strand(i).R, strand(i).d, strand(i).isMain] = generateBulgeDOF(strand(i).R, strand(i).d, strand(i).isMain, strand(i).isCircular);
+        for j = 1:numel(strand(i).seq)
+            if(strcmp(strand(i).seq(j), 'N'))
+                tmp = strand(i).tour(j);
+                assert(dnaTop(tmp).across == -1);
+                strand(i).seq(j) = dnaTop(tmp).seq;
+            end
+        end
+    end
+end
 
 
 %% Create the PDB file

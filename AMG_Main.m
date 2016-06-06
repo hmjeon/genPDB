@@ -1,8 +1,8 @@
 % --------------------------------------------------
 % AMG : Atomic Model Generation
 % --------------------------------------------------
-clear all;
-close all;
+clear   all;
+close   all;
 addpath Source
 
 %% Set parameters for rendering resolution and Chimera environments
@@ -10,10 +10,11 @@ param.molmapResolution = 3;
 param.WindowSize       = [600 600];
 param.chimeraEXE       = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
 param.chimeraOPTION    = '--silent --script';
-param.fileType         = 'all';      % cmd / tif / all
+param.fileType         = 'all';     % cmd / tif / all
+param.bulge            = 'no';      % yes / no
 
 %% Step 5. Set problem name with array
-name_prob = { '01_Tetrahedron_2_53_2_0' }
+name_prob = { '05_Icosahedron_13_53_1_0' }
 
 %% Step 6. Generate the atomic model
 for i = 1 : numel(name_prob)
