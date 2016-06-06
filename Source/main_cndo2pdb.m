@@ -80,7 +80,7 @@ for i = 1 : size(id_nt,1)
 end
 
 % Create bulges
-if(param.bulge == 'yes')
+if(param.bulge == 1)
     for i = 1:numel(strand)
         [strand(i).R, strand(i).d, strand(i).isMain] = generateBulgeDOF(strand(i).R, strand(i).d, strand(i).isMain, strand(i).isCircular);
         for j = 1:numel(strand(i).seq)
