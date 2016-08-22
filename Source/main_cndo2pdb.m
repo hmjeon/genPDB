@@ -17,6 +17,7 @@ rot_mat = [ 0, 0,-1; ...
 % Load the structure 'dnaInfo'
 % load(CAD_path, 'dnaInfo');
 % Read the .cndo file
+
 [dnaInfo, param] = cndo2dnaInfo(CAD_path, param);
 
 % Filename without the extension

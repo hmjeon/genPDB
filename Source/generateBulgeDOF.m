@@ -114,7 +114,8 @@ d_fit = zeros(3,n_ss);
 
 % Rotation matrix R
 % R * R_1 = R_2
-R = R_2 / R_1;
+% R = R_2 / R_1;
+R = R_2 * inv(R_1);
 v = vrrotmat2vec(R);
 a = v(1:3);
 theta = v(4);

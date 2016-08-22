@@ -1,7 +1,7 @@
 function [dnaTop,strand] = buildStrand(dnaTop)
 
-nBase = numel(dnaTop);      % number of bases in the DNA nanostructure
-iStrand = 0;
+nBase     = numel(dnaTop);      % number of bases in the DNA nanostructure
+iStrand   = 0;
 isVisited = false(nBase,1);
 
 % Each loop creates a new strand
