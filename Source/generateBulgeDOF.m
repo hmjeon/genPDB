@@ -114,8 +114,7 @@ d_fit = zeros(3,n_ss);
 
 % Rotation matrix R
 % R * R_1 = R_2
-% R = R_2 / R_1;
-R = R_2 * inv(R_1);
+R = R_2 / R_1;
 % v = vrrotmat2vec(R);
 v = Rmat2AxisAngle(R);
 a = v(1:3);
@@ -134,6 +133,7 @@ function v = Rmat2AxisAngle(R)
 % More robust than vrrotmat2vec when the rotation angle = pi
 q = dcm2quat(R');
 theta = cart2pol(q(1),norm(q(2:4))) * 2;
+theta = mod((theta+pi),2*pi)-pi;
 u = q(2:4) / norm(q(2:4));
 v = [u theta];
 
