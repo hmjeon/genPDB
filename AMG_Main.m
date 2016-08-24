@@ -12,9 +12,10 @@ param.chimeraEXE       = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
 param.chimeraOPTION    = '--silent --script';
 param.fileType         = 'all';     % cmd / tif / all
 param.bulge            = 1;         % 0 - no bulge, 1 - with bulge
+param.scale            = 1.0;
 
 %% Step 5. Set problem name with array
-name_prob = { '01_Tetrahedron_1_32_flat_0' }
+name_prob = { '01_Tetrahedron_16_31_flat_4', '02_Cube_16_31_flat_4' }
 
 %% Step 6. Generate the atomic model
 for i = 1 : numel(name_prob)

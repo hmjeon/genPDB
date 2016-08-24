@@ -24,9 +24,13 @@ end
 param.view = strtrim(fgetl(fid));
 ss = strtrim(fgetl(fid));
 
+% Read scale
+param.scale = fscanf(fid,'%f/n');
+ss = strtrim(fgetl(fid));
+
 % Read RGB
 param.StrandColor = [190 190 190;  86 180 233];
-param.StrandColor(2,:) = fscanf(fid,'%i %i %i');
+param.StrandColor(2,:) = fscanf(fid,'%i %i %i\n');
 
 % Read the field 'dnaTop'
 ss = strtrim(fgetl(fid));

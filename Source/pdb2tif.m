@@ -15,7 +15,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Generate the UCSF Chimera script
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-chimeraScr = fullfile(work_dir, strcat(bodyFN, '_chimera.py'));
+chimeraScr = fullfile(work_dir, strcat(bodyFN, '_tif.py'));
 fid = fopen(chimeraScr, 'w');
 % Import the Python interface
 fprintf(fid,'from chimera import runCommand\n');
@@ -48,43 +48,37 @@ end
 
 % Save as .tif files
 if(strcmp(sysParam.view, 'XY'))
-    fprintf(fid, 'runCommand(''window'')\n');
-    fprintf(fid, 'runCommand(''scale 0.8'')\n');
-    fprintf(fid, 'runCommand(''wait'')\n');
+    %fprintf(fid, 'runCommand(''window'')\n');
+    %fprintf(fid, 'runCommand(''scale 0.8'')\n');
+    %fprintf(fid, 'runCommand(''wait'')\n');
+    fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
-    fprintf(fid, 'runCommand(''wait'')\n');
 elseif(strcmp(sysParam.view, 'XZ'))
-    fprintf(fid, 'runCommand(''window'')\n');
-    fprintf(fid, 'runCommand(''scale 0.8'')\n');
-    fprintf(fid, 'runCommand(''wait'')\n');
+    %fprintf(fid, 'runCommand(''window'')\n');
+    %fprintf(fid, 'runCommand(''scale 0.8'')\n');
+    %fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
+    fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
-    fprintf(fid, 'runCommand(''wait'')\n');
-    fprintf(fid, 'runCommand(''turn x 90'')\n');
 elseif(strcmp(sysParam.view, 'YZ'))
-    fprintf(fid, 'runCommand(''window'')\n');
-    fprintf(fid, 'runCommand(''scale 0.8'')\n');
-    fprintf(fid, 'runCommand(''wait'')\n');
+    %fprintf(fid, 'runCommand(''window'')\n');
+    %fprintf(fid, 'runCommand(''scale 0.8'')\n');
+    %fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -90'')\n');
+    fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
-    fprintf(fid, 'runCommand(''wait'')\n');
-    fprintf(fid, 'runCommand(''turn y 90'')\n');
-    fprintf(fid, 'runCommand(''turn x 90'')\n');
 elseif(strcmp(sysParam.view, 'XYZ'))
-    fprintf(fid, 'runCommand(''window'')\n')
-    fprintf(fid, 'runCommand(''scale 0.8'')\n');
-    fprintf(fid, 'runCommand(''wait'')\n');
+    %fprintf(fid, 'runCommand(''window'')\n');
+    %fprintf(fid, 'runCommand(''scale 0.8'')\n');
+    %fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -120'')\n');
     fprintf(fid, 'runCommand(''turn x 35'')\n');
+    fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
-    fprintf(fid, 'runCommand(''wait'')\n');
-    fprintf(fid, 'runCommand(''turn x -35'')\n');
-    fprintf(fid, 'runCommand(''turn y 120'')\n');
-    fprintf(fid, 'runCommand(''turn x 90'')\n');
 end
-
+fprintf(fid, 'runCommand(''wait'')\n');
 fprintf(fid, 'runCommand(''close all'')\n');
 fprintf(fid, 'runCommand(''stop yes'')\n');
 fclose(fid);
