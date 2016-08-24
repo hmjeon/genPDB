@@ -116,7 +116,8 @@ d_fit = zeros(3,n_ss);
 % R * R_1 = R_2
 % R = R_2 / R_1;
 R = R_2 * inv(R_1);
-v = vrrotmat2vec(R);
+% v = vrrotmat2vec(R);
+v = Rmat2AxisAngle(R);
 a = v(1:3);
 theta = v(4);
 
@@ -125,5 +126,15 @@ for i = 1 : n_ss
     R_fit(:,:,i) = vrrotvec2mat([a, theta*i/(n_ss+1)]) * R_1;
     d_fit(:,i) = (d_1*(n_ss+1-i) + d_2*i) / (n_ss+1);
 end
+
+end
+
+
+function v = Rmat2AxisAngle(R)
+% More robust than vrrotmat2vec when the rotation angle = pi
+q = dcm2quat(R');
+theta = cart2pol(q(1),norm(q(2:4))) * 2;
+u = q(2:4) / norm(q(2:4));
+v = [u theta];
 
 end
