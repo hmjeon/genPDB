@@ -15,7 +15,7 @@ param.bulge            = 1;         % 0 - no bulge, 1 - with bulge
 param.scale            = 1.0;
 
 %% Step 5. Set problem name with array
-name_prob = { '01_Tetrahedron_16_31_flat_4', '02_Cube_16_31_flat_4' }
+name_prob = { '01_Tetrahedron_16cs_31bp_flat_mod_max_4' }
 
 %% Step 6. Generate the atomic model
 for i = 1 : numel(name_prob)

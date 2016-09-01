@@ -105,21 +105,25 @@ fclose(fid);
 
 %% Generate the MATLAB script 'dnaInfo'
 n_nt = size(conn,1);
-if(n_nt > 30000)
-    if(n_nt > 50000)
-        param.molmapResolution = 7
-    else
-        param.molmapResolution = 5
-    end
-else
-    param.molmapResolution = 3
-end
-
 assert(n_nt == numel(seq));
 assert(norm(conn(:,1) - (1:n_nt)') < tol);
 conn(:,1) = [];
 
 n_bp = size(dNode,1);
+
+if(n_bp > 10000)
+    if(n_bp > 20000)
+        param.molmapResolution = 6;
+        param.fileType         = 'cmd'
+    else
+        param.molmapResolution = 5;
+        param.fileType         = 'all'
+    end
+else
+    param.molmapResolution = 3;
+    param.fileType         = 'all'
+end
+
 assert(n_bp == size(triad,1) && n_bp == size(id_nt,1));
 dNode(:,1) = [];
 triad(:,1) = [];
