@@ -105,6 +105,16 @@ fclose(fid);
 
 %% Generate the MATLAB script 'dnaInfo'
 n_nt = size(conn,1);
+if(n_nt > 30000)
+    if(n_nt > 50000)
+        param.molmapResolution = 7
+    else
+        param.molmapResolution = 5
+    end
+else
+    param.molmapResolution = 3
+end
+
 assert(n_nt == numel(seq));
 assert(norm(conn(:,1) - (1:n_nt)') < tol);
 conn(:,1) = [];
