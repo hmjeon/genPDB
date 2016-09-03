@@ -20,6 +20,10 @@ rot_mat = [ 0, 0,-1; ...
 
 [dnaInfo, param] = cndo2dnaInfo(CAD_path, param);
 
+if(param.end == 1)
+    return
+end
+
 % Filename without the extension
 [~, bodyFN] = fileparts(CAD_path);
 

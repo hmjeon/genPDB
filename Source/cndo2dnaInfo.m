@@ -111,17 +111,16 @@ conn(:,1) = [];
 
 n_bp = size(dNode,1);
 
-if(n_bp > 10000)
-    if(n_bp > 20000)
-        param.molmapResolution = 6;
-        param.fileType         = 'cmd'
+if(n_bp > 30000)
+    if(n_bp > 100000)
+        param.end = 1;
     else
         param.molmapResolution = 5;
-        param.fileType         = 'all'
+        param.end = 0;
     end
 else
     param.molmapResolution = 3;
-    param.fileType         = 'all'
+    param.end = 0;
 end
 
 assert(n_bp == size(triad,1) && n_bp == size(id_nt,1));
