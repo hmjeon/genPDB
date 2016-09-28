@@ -14,12 +14,12 @@ param.fileType         = 'all';     % cmd / tif / all
 param.bulge            = 1;         % 0 - no bulge, 1 - with bulge
 
 %% Step 5. Read problem name from file
-name_prob = ReadProbList;
+name_prob = ReadProb_Local;
 
 %% Step 6. Generate the atomic model
 for i = 1 : numel(name_prob)
     tic;
-    disp(strcat('Problem name : ', name_prob{i}))
+    disp(strcat('     # Problem name : ', name_prob{i}))
     path_input{i}  = strcat('Input\', name_prob{i});
     path_input{i}  = fullfile(path_input{i}, strcat(name_prob{i}, '.cndo'));
     path_output{i} = strcat('Output\', name_prob{i});

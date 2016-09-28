@@ -111,17 +111,23 @@ conn(:,1) = [];
 
 n_bp = size(dNode,1);
 
-if(n_bp > 30000)
-    if(n_bp > 100000)
-        param.end = 1;
+if(n_nt > 30000)
+    if(n_nt > 40000)
+        if(n_nt > 50000)
+            param.molmapResolution = 6;
+        else
+            param.molmapResolution = 5;
+        end
     else
-        param.molmapResolution = 5;
-        param.end = 0;
+        param.molmapResolution = 4;
     end
 else
     param.molmapResolution = 3;
-    param.end = 0;
 end
+
+fprintf('     # of nucleotides  : %d\n', n_nt)
+fprintf('     # of base pairs   : %d\n', n_bp)
+fprintf('     Molmap Resolution : %d\n', param.molmapResolution)
 
 assert(n_bp == size(triad,1) && n_bp == size(id_nt,1));
 dNode(:,1) = [];

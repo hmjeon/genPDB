@@ -15,12 +15,12 @@ param.bulge            = 1;         % 0 - no bulge, 1 - with bulge
 param.scale            = 1.0;
 
 %% Step 5. Set problem name with array
-name_prob = { '01_Tetrahedron_16cs_31bp_flat_mod_max_4' }
+name_prob = { '01_Tetrahedron_16cs_63bp_flat_const_opt' };
 
 %% Step 6. Generate the atomic model
 for i = 1 : numel(name_prob)
     tic;
-    disp(strcat('Problem name : ', name_prob{i}))
+    disp(strcat('     # Problem name : ', name_prob{i}))
     path_input{i}  = fullfile('Input\', strcat(name_prob{i}, '.cndo'));
     path_output{i} = strcat('Output\', name_prob{i});
     main_cndo2pdb(path_input{i}, path_output{i}, param);

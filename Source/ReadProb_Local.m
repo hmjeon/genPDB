@@ -1,8 +1,8 @@
-function name_prob = ReadProbList
+function name_prob = ReadProb_Local
 
 
 %% Read the file
-fid   = fopen('list.txt');
+fid   = fopen('list_local.txt');
 count = 0;
 
 % Read problem list
