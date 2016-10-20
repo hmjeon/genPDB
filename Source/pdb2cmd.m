@@ -28,16 +28,25 @@ fprintf(fid, 'runCommand(''~display'')\n');
 RGB_scaf = sysParam.StrandColor(1,:)/255;
 RGB_stap = sysParam.StrandColor(2,:)/255;
 for i = 1:numel(strand)
-    if(strand(i).types == 0)
-        RGB = RGB_scaf;
-    else
-        RGB = RGB_stap;
+    if(sysParam.cndo == 1)
+        if(numel(strand(i).tour) >= 200)
+            RGB = RGB_scaf;
+        else
+            RGB = RGB_stap;
+        end
+    elseif(sysParam.cndo == 2)
+        if(strand(i).types == 0)
+            RGB = RGB_scaf;
+        else
+            RGB = RGB_stap;
+        end
     end
     fprintf(fid, 'runCommand(''molmap #0.%d %d'')\n', i, sysParam.molmapResolution);
     fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step 1'')\n', i, RGB(1), RGB(2), RGB(3));
 end
 
-if(strcmp(sysParam.view, 'XZ'))
+if(strcmp(sysParam.view, 'XY'))
+elseif(strcmp(sysParam.view, 'XZ'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
 elseif(strcmp(sysParam.view, 'YZ'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');

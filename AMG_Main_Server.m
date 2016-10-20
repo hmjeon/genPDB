@@ -12,6 +12,7 @@ param.chimeraEXE       = '"/cm/shared/hl-Chimera/bin/chimera"';
 param.chimeraOPTION    = '--silent --script';
 param.fileType         = 'all';     % cmd / tif / all
 param.bulge            = 1;         % 0 - no bulge, 1 - with bulge
+param.cndo             = 1;         % cndo format version
 
 %% Step 5. Read problem name from file
 name_prob = ReadProb_Server;

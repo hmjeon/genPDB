@@ -20,33 +20,51 @@ for i = 1 : 2
     assert(ischar(ss));
 end
 
-% Read view
-param.view = strtrim(fgetl(fid));
-ss = strtrim(fgetl(fid));
-
-% Read scale
-param.scale = fscanf(fid,'%f/n');
-ss = strtrim(fgetl(fid));
-
-% Read RGB
 param.StrandColor = [190 190 190;  86 180 233];
-param.StrandColor(2,:) = fscanf(fid,'%i %i %i\n');
+    
+if(param.cndo == 2)
+    % Read view
+    param.view = strtrim(fgetl(fid));
+    ss = strtrim(fgetl(fid));
+    
+    % Read scale
+    param.scale = fscanf(fid,'%f/n');
+    ss = strtrim(fgetl(fid));
+
+    % Read RGB
+    param.StrandColor(2,:) = fscanf(fid,'%i %i %i\n');
+end
 
 % Read the field 'dnaTop'
 ss = strtrim(fgetl(fid));
 assert(strcmp(ss(1:6), 'dnaTop'));
 ss = strtrim(fgetl(fid));
 while(~isempty(ss));
-    a = strsplit(ss, ',');
-    assert(numel(a) == 7);
-    conn = cat(1, conn, [str2double(a{1}), ...
+
+    if(param.cndo == 1)
+        a = strsplit(ss, ',');
+        assert(numel(a) == 6);
+        conn = cat(1, conn, [str2double(a{1}), ...
                          str2double(a{2}), ...
                          str2double(a{3}), ...
                          str2double(a{4}), ...
                          str2double(a{5})]);
-    seq   = cat(1, seq, a(6));
-    types = cat(1, types, str2double(a{7}));
-    ss    = strtrim(fgetl(fid));
+        seq = cat(1, seq, a(6));
+        ss  = strtrim(fgetl(fid));
+    end
+
+    if(param.cndo == 2)
+        a = strsplit(ss, ',');
+        assert(numel(a) == 7);
+        conn = cat(1, conn, [str2double(a{1}), ...
+                         str2double(a{2}), ...
+                         str2double(a{3}), ...
+                         str2double(a{4}), ...
+                         str2double(a{5})]);
+        seq   = cat(1, seq, a(6));
+        types = cat(1, types, str2double(a{7}));
+        ss    = strtrim(fgetl(fid));
+    end
 end
 
 % Read the field 'dNode'
@@ -140,16 +158,29 @@ for i = 1 : n_bp
 end
 
 for i = 1 : n_nt
-    dnaInfo.dnaTop(i) = struct('id',     conn(i,1), ...
-                               'up',     conn(i,2), ...
-                               'down',   conn(i,3), ...
-                               'across', conn(i,4), ...
-                               'seq',    seq{i}, ...
-                               'types',  types(i));, ...
-                                
+    if(param.cndo == 1)
+        dnaInfo.dnaTop(i) = struct('id',     conn(i,1), ...
+                                   'up',     conn(i,2), ...
+                                   'down',   conn(i,3), ...
+                                   'across', conn(i,4), ...
+                                   'seq',    seq{i}, ...
+                                   'types',  0);
+    elseif(param.cndo == 2)
+        dnaInfo.dnaTop(i) = struct('id',     conn(i,1), ...
+                                   'up',     conn(i,2), ...
+                                   'down',   conn(i,3), ...
+                                   'across', conn(i,4), ...
+                                   'seq',    seq{i}, ...
+                                   'types',  types(i));
+    end
     dnaInfo.dnaGeom.dNode = dNode;
     dnaInfo.dnaGeom.triad = triad2;
     dnaInfo.dnaGeom.id_nt = id_nt;
+end
+
+if(param.cndo == 1)
+    param.view  = 'XY';
+    param.scale = 1.0;
 end
 
 end
