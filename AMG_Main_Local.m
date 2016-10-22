@@ -9,6 +9,7 @@ addpath Source
 param.molmapResolution = 3;
 param.WindowSize       = [600 600];
 param.chimeraEXE       = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
+param.chimeraEXE_win   = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
 param.chimeraOPTION    = '--silent --script';
 param.fileType         = 'all';     % cmd / tif / all
 param.bulge            = 1;         % 0 - no bulge, 1 - with bulge
