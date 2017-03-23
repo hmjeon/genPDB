@@ -7,7 +7,7 @@ addpath Source
 
 %% Set parameters for rendering resolution and Chimera environments
 param.molmapResolution = 3;
-param.WindowSize       = [600 600];
+param.WindowSize       = [800 800];
 param.chimeraEXE       = '"/cm/shared/hl-Chimera/bin/chimera"';
 param.chimeraEXE_win   = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
 param.chimeraOPTION    = '--silent --script';

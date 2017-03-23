@@ -18,7 +18,7 @@ fprintf(fid, 'runCommand(''open %s'')\n', strcat(bodyFN, '.pdb'));
 fprintf(fid, 'runCommand(''windowsize %d %d'')\n', sysParam.WindowSize(1), sysParam.WindowSize(2));
 fprintf(fid, 'runCommand(''preset apply publication 3'')\n');
 fprintf(fid, 'runCommand(''window'')\n');
-fprintf(fid, 'runCommand(''scale 0.8'')\n');
+fprintf(fid, 'runCommand(''scale 0.9'')\n');
 
 % Turn off the original rendering
 fprintf(fid, 'runCommand(''~ribbon'')\n');
