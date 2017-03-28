@@ -2,13 +2,13 @@ function [] = pdb2tif(pdb_path, bodyFN, strand, sysParam)
 
 work_dir = fileparts(pdb_path);
 
-if(strcmp(sysParam.view, 'XY'))
+if(strcmp(sysParam.view, 'xy'))
     tif_path = fullfile(work_dir, strcat(bodyFN, '_XY.tif'));
-elseif(strcmp(sysParam.view, 'XZ'))
+elseif(strcmp(sysParam.view, 'xz'))
     tif_path = fullfile(work_dir, strcat(bodyFN, '_XZ.tif'));
-elseif(strcmp(sysParam.view, 'YZ'))
+elseif(strcmp(sysParam.view, 'yz'))
     tif_path = fullfile(work_dir, strcat(bodyFN, '_YZ.tif'));
-elseif(strcmp(sysParam.view, 'XYZ'))
+elseif(strcmp(sysParam.view, 'xyz'))
     tif_path = fullfile(work_dir, strcat(bodyFN, '_XYZ.tif'));
 end
 
@@ -55,20 +55,20 @@ for i = 1:numel(strand)
 end
 
 % Save as .tif files
-if(strcmp(sysParam.view, 'XY'))
+if(strcmp(sysParam.view, 'xy'))
     %fprintf(fid, 'runCommand(''window'')\n');
     %fprintf(fid, 'runCommand(''scale 0.8'')\n');
     %fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
-elseif(strcmp(sysParam.view, 'XZ'))
+elseif(strcmp(sysParam.view, 'xz'))
     %fprintf(fid, 'runCommand(''window'')\n');
     %fprintf(fid, 'runCommand(''scale 0.8'')\n');
     %fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
-elseif(strcmp(sysParam.view, 'YZ'))
+elseif(strcmp(sysParam.view, 'yz'))
     %fprintf(fid, 'runCommand(''window'')\n');
     %fprintf(fid, 'runCommand(''scale 0.8'')\n');
     %fprintf(fid, 'runCommand(''wait'')\n');
@@ -76,7 +76,7 @@ elseif(strcmp(sysParam.view, 'YZ'))
     fprintf(fid, 'runCommand(''turn y -90'')\n');
     fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
-elseif(strcmp(sysParam.view, 'XYZ'))
+elseif(strcmp(sysParam.view, 'xyz'))
     %fprintf(fid, 'runCommand(''window'')\n');
     %fprintf(fid, 'runCommand(''scale 0.8'')\n');
     %fprintf(fid, 'runCommand(''wait'')\n');

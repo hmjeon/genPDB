@@ -45,13 +45,13 @@ for i = 1:numel(strand)
     fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step 1'')\n', i, RGB(1), RGB(2), RGB(3));
 end
 
-if(strcmp(sysParam.view, 'XY'))
-elseif(strcmp(sysParam.view, 'XZ'))
+if(strcmp(sysParam.view, 'xy'))
+elseif(strcmp(sysParam.view, 'xz'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
-elseif(strcmp(sysParam.view, 'YZ'))
+elseif(strcmp(sysParam.view, 'yz'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -90'')\n');
-elseif(strcmp(sysParam.view, 'XYZ'))
+elseif(strcmp(sysParam.view, 'xyz'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -120'')\n');
     fprintf(fid, 'runCommand(''turn x 35'')\n');
