@@ -23,6 +23,7 @@ fprintf(fid, 'runCommand(''scale 0.9'')\n');
 % Turn off the original rendering
 fprintf(fid, 'runCommand(''~ribbon'')\n');
 fprintf(fid, 'runCommand(''~display'')\n');
+fprintf(fid, 'runCommand(''set projection %s'')\n', sysParam.chimeraPROJECT);
 
 % Use the new rendering
 RGB_scaf = sysParam.StrandColor(1,:)/255;

@@ -11,6 +11,7 @@ param.WindowSize       = [800 800];
 param.chimeraEXE       = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
 param.chimeraEXE_win   = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
 param.chimeraOPTION    = '--silent --script';
+param.chimeraPROJECT   = 'orthographic';    % [perspective | orthographic]
 param.fileType         = 'all';     % cmd / tif / all
 param.bulge            = 1;         % 0 - no bulge, 1 - with bulge
 param.cndo             = 2;         % cndo format version
