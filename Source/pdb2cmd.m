@@ -51,6 +51,12 @@ elseif(strcmp(sysParam.view, 'xz'))
 elseif(strcmp(sysParam.view, 'yz'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -90'')\n');
+elseif(strcmp(sysParam.view, 'xyz1'))
+    fprintf(fid, 'runCommand(''turn x -90'')\n');
+    fprintf(fid, 'runCommand(''turn y -45'')\n');
+    fprintf(fid, 'runCommand(''turn z 35'')\n');
+elseif(strcmp(sysParam.view, 'xyz2'))
+    fprintf(fid, 'runCommand(''turn x 60'')\n');
 elseif(strcmp(sysParam.view, 'xyz'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -120'')\n');

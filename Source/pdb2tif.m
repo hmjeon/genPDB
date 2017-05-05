@@ -8,6 +8,10 @@ elseif(strcmp(sysParam.view, 'xz'))
     tif_path = fullfile(work_dir, strcat(bodyFN, '_XZ.tif'));
 elseif(strcmp(sysParam.view, 'yz'))
     tif_path = fullfile(work_dir, strcat(bodyFN, '_YZ.tif'));
+elseif(strcmp(sysParam.view, 'xyz1'))
+    tif_path = fullfile(work_dir, strcat(bodyFN, '_XYZ1.tif'));
+elseif(strcmp(sysParam.view, 'xyz2'))
+    tif_path = fullfile(work_dir, strcat(bodyFN, '_XYZ2.tif'));
 elseif(strcmp(sysParam.view, 'xyz'))
     tif_path = fullfile(work_dir, strcat(bodyFN, '_XYZ.tif'));
 end
@@ -74,6 +78,22 @@ elseif(strcmp(sysParam.view, 'yz'))
     %fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -90'')\n');
+    fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
+    fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
+elseif(strcmp(sysParam.view, 'xyz1'))
+    %fprintf(fid, 'runCommand(''window'')\n');
+    %fprintf(fid, 'runCommand(''scale 0.8'')\n');
+    %fprintf(fid, 'runCommand(''wait'')\n');
+    fprintf(fid, 'runCommand(''turn x -90'')\n');
+    fprintf(fid, 'runCommand(''turn y -45'')\n');
+    fprintf(fid, 'runCommand(''turn z 35'')\n');
+    fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
+    fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
+elseif(strcmp(sysParam.view, 'xyz2'))
+    %fprintf(fid, 'runCommand(''window'')\n');
+    %fprintf(fid, 'runCommand(''scale 0.8'')\n');
+    %fprintf(fid, 'runCommand(''wait'')\n');
+    fprintf(fid, 'runCommand(''turn x 60'')\n');
     fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
 elseif(strcmp(sysParam.view, 'xyz'))
