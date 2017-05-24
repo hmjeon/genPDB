@@ -28,6 +28,15 @@ fprintf(fid, 'runCommand(''set projection %s'')\n', sysParam.chimeraPROJECT);
 % Use the new rendering
 RGB_scaf = sysParam.StrandColor(1,:)/255;
 RGB_stap = sysParam.StrandColor(2,:)/255;
+
+strandColorList = [0 102 204; 184 5 108; 247 67 8; 3 182 162; 247 147 30; 204 0 0; 87 187 0; 0 114 0; 115 0 222];
+nColor = size(strandColorList,1);
+nStrand = numel(strand);
+strandColor = zeros(nStrand,3);
+for i = 1:nStrand
+    strandColor(i,:) = strandColorList(mod(i-1,nColor)+1,:);
+end
+
 for i = 1:numel(strand)
     if(sysParam.cndo == 1)
         if(numel(strand(i).tour) >= 200)
@@ -36,10 +45,18 @@ for i = 1:numel(strand)
             RGB = RGB_stap;
         end
     elseif(sysParam.cndo == 2)
-        if(strand(i).types == 0)
+        if(strcmp(sysParam.color, 'defined') && strand(i).types == 0)
+            % Scaffold
             RGB = RGB_scaf;
-        else
+        elseif(strcmp(sysParam.color, 'defined') && strand(i).types == 1)
+            % Staples
             RGB = RGB_stap;
+        elseif(strcmp(sysParam.color, 'multiple') && strand(i).types == 0)
+            % Scaffold
+            RGB = [0, 102, 204]/255;
+        elseif(strcmp(sysParam.color, 'multiple') && strand(i).types == 1)
+            % Staples
+            RGB = strandColor(i,:)/255;
         end
     end
     fprintf(fid, 'runCommand(''molmap #0.%d %d'')\n', i, sysParam.molmapResolution);
