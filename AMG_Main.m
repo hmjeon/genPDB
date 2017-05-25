@@ -19,7 +19,8 @@ param.cndo             = 2;                 % cndo format version
 
 %% Step 5. Set problem name with array
 name_prob = {...
-'01_Tetrahedron_2cs_63bp_flat_max'}
+'01_Tetrahedron_2cs_63bp_flat_max',...
+}
 
 %% Step 6. Generate the atomic model
 for i = 1 : numel(name_prob)

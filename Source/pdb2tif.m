@@ -42,7 +42,7 @@ fprintf(fid, 'runCommand(''set projection %s'')\n', sysParam.chimeraPROJECT);
 RGB_scaf = sysParam.StrandColor(1,:)/255;
 RGB_stap = sysParam.StrandColor(2,:)/255;
             
-strandColorList = [0 102 204; 184 5 108; 247 67 8; 3 182 162; 247 147 30; 204 0 0; 87 187 0; 0 114 0; 115 0 222];
+strandColorList = [184 5 108; 247 67 8; 3 182 162; 247 147 30; 204 0 0; 87 187 0; 0 114 0; 115 0 222];
 nColor = size(strandColorList,1);
 nStrand = numel(strand);
 strandColor = zeros(nStrand,3);
