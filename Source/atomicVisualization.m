@@ -290,7 +290,7 @@ end
 fprintf(fid, 'runCommand(''stop yes'')\n');
 fclose(fid);
 
-runChimera = sprintf('%s %s %s',sysParam.chimeraEXE, sysParam.chimeraOPTION, chimeraScr);
+runChimera = sprintf('%s %s %s',sysParam.chi_exe, sysParam.chi_opt, chimeraScr);
 system(runChimera);
 
 end

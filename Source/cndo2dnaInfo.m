@@ -132,20 +132,20 @@ n_bp = size(dNode,1);
 if(n_nt > 30000)
     if(n_nt > 40000)
         if(n_nt > 50000)
-            param.molmapResolution = 6;
+            param.mol_res = 6;
         else
-            param.molmapResolution = 5;
+            param.mol_res = 5;
         end
     else
-        param.molmapResolution = 4;
+        param.mol_res = 4;
     end
 else
-    param.molmapResolution = 3;
+    param.mol_res = 3;
 end
 
 fprintf('     # of nucleotides  : %d\n', n_nt)
 fprintf('     # of base pairs   : %d\n', n_bp)
-fprintf('     Molmap Resolution : %d\n', param.molmapResolution)
+fprintf('     Molmap Resolution : %d\n', param.mol_res)
 
 assert(n_bp == size(triad,1) && n_bp == size(id_nt,1));
 dNode(:,1) = [];
@@ -176,11 +176,6 @@ for i = 1 : n_nt
     dnaInfo.dnaGeom.dNode = dNode;
     dnaInfo.dnaGeom.triad = triad2;
     dnaInfo.dnaGeom.id_nt = id_nt;
-end
-
-if(param.cndo == 1)
-    param.view  = 'XY';
-    param.scale = 1.0;
 end
 
 end

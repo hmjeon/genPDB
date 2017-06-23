@@ -6,15 +6,22 @@ close   all;
 addpath Source
 
 %% Set parameters for rendering resolution and Chimera environments
-param.molmapResolution = 3;
-param.WindowSize       = [800 800];
-param.chimeraEXE       = '"/cm/shared/hl-Chimera/bin/chimera"';
-param.chimeraEXE_win   = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
-param.chimeraOPTION    = '--silent --script';
-param.chimeraPROJECT   = 'orthographic';    % [perspective | orthographic]
-param.fileType         = 'all';     % cmd / tif / all
-param.bulge            = 1;         % 0 - no bulge, 1 - with bulge
-param.cndo             = 2;         % cndo format version
+param.chi_exe = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
+param.chi_win = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
+param.chi_opt = '--silent --script';
+
+param.size     = [800 800];
+param.proj     = 'orthographic';    % [orthographic | perspective]
+param.color    = 'defined';         % [defined | multiple]
+param.out      = 'all';             % cmd / tif / all
+param.type     = 'ribbon'           % molmap or ribbon
+param.view     = 'xy';              % Viewpoints
+param.scale    = 1.0;               % Scale
+param.bulge    = 1;                 % 0 - no bulge, 1 - with bulge
+param.cndo     = 2;                 % cndo format version
+param.trans    = 0                  % Transparency
+param.mol_res  = 3;                 % Parameter for molmap
+param.vol_step = 1;                 % Parameter for volume step
 
 %% Step 5. Read problem name from file
 name_prob = ReadProb_Server;

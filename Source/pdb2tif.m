@@ -28,7 +28,7 @@ fprintf(fid,'from chimera import runCommand\n');
 fprintf(fid, 'runCommand(''open %s'')\n', strrep(pdb_path,'\','/'));
 
 % Set the environment
-fprintf(fid, 'runCommand(''windowsize %d %d'')\n', sysParam.WindowSize(1), sysParam.WindowSize(2));
+fprintf(fid, 'runCommand(''windowsize %d %d'')\n', sysParam.size(1), sysParam.size(2));
 fprintf(fid, 'runCommand(''preset apply publication 3'')\n');
 fprintf(fid, 'runCommand(''window'')\n');
 fprintf(fid, 'runCommand(''scale 0.9'')\n');
@@ -36,18 +36,21 @@ fprintf(fid, 'runCommand(''scale 0.9'')\n');
 % Turn off the original rendering
 fprintf(fid, 'runCommand(''~ribbon'')\n');
 fprintf(fid, 'runCommand(''~display'')\n');
-fprintf(fid, 'runCommand(''set projection %s'')\n', sysParam.chimeraPROJECT);
+fprintf(fid, 'runCommand(''set projection %s'')\n', sysParam.proj);
 
 % Use the new rendering
 RGB_scaf = sysParam.StrandColor(1,:)/255;
 RGB_stap = sysParam.StrandColor(2,:)/255;
             
-strandColorList = [184 5 108; 247 67 8; 3 182 162; 247 147 30; 204 0 0; 87 187 0; 0 114 0; 115 0 222];
+strandColorList  = [184 5 108; 247 67 8; 3 182 162; 247 147 30; 204 0 0; 87 187 0; 0 114 0; 115 0 222];
+strandColorList1 = ['#b8056c'; '#f74308'; '#03b6a2'; '#f7931e'; '#cc0000'; '#57bb00'; '#007200'; '#7300de'];
+
 nColor = size(strandColorList,1);
 nStrand = numel(strand);
 strandColor = zeros(nStrand,3);
 for i = 1:nStrand
     strandColor(i,:) = strandColorList(mod(i-1,nColor)+1,:);
+    strandColor1(i,:)= strandColorList1(mod(i-1,nColor)+1,:);
 end
 
 for i = 1:numel(strand)
@@ -60,20 +63,31 @@ for i = 1:numel(strand)
     elseif(sysParam.cndo == 2)
         if(strcmp(sysParam.color, 'defined') && strand(i).types == 0)
             % Scaffold
-            RGB = RGB_scaf;
+            RGB  = RGB_scaf;
+            RGB1 = '#0066cc';
         elseif(strcmp(sysParam.color, 'defined') && strand(i).types == 1)
             % Staples
-            RGB = RGB_stap;
+            RGB  = RGB_stap;
+            RGB1 = '#f7931e';
         elseif(strcmp(sysParam.color, 'multiple') && strand(i).types == 0)
             % Scaffold
-            RGB = [0, 102, 204]/255;
+            RGB  = [0, 102, 204]/255;
+            RGB1 = '#0066cc';
         elseif(strcmp(sysParam.color, 'multiple') && strand(i).types == 1)
             % Staples
-            RGB = strandColor(i,:)/255;
+            RGB  = strandColor(i,:)/255;
+            RGB1 = strandColor1(i,:);
         end
     end
-    fprintf(fid, 'runCommand(''molmap #0.%d %d'')\n', i, sysParam.molmapResolution);
-    fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step 1'')\n', i, RGB(1), RGB(2), RGB(3));
+    if(sysParam.type == 'molmap')
+        fprintf(fid, 'runCommand(''molmap #0.%d %d'')\n', i, sysParam.mol_res);
+        fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step %d transparency %f'')\n',...
+            i, RGB(1), RGB(2), RGB(3), sysParam.vol_step, sysParam.trans);
+    else
+        fprintf(fid, 'runCommand(''ribbon #0.%d'')\n', i);
+        fprintf(fid, 'runCommand(''ribcolor %s #0.%d'')\n', RGB1, i);
+        fprintf(fid, 'runCommand(''transparency %f,r #0.%d'')\n', sysParam.trans*100, i);
+    end
 end
 
 % Save as .tif files
@@ -129,6 +143,6 @@ fprintf(fid, 'runCommand(''close all'')\n');
 fprintf(fid, 'runCommand(''stop yes'')\n');
 fclose(fid);
 
-runChimera = sprintf('%s %s %s',sysParam.chimeraEXE, sysParam.chimeraOPTION, chimeraScr);
+runChimera = sprintf('%s %s %s',sysParam.chi_exe, sysParam.chi_opt, chimeraScr);
 system(runChimera);
 end

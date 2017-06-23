@@ -102,11 +102,11 @@ pdbFinal = pdbModify_multimodel(pdbFinal);
 mypdbwrite_v2(pdb_path, pdbFinal);
 
 %% Render the PDB file
-if(param.fileType == 'cmd')
+if(param.out == 'cmd')
     pdb2cmd(pdb_path, bodyFN, strand, param);
-elseif(param.fileType == 'tif')
+elseif(param.out == 'tif')
     pdb2tif(pdb_path, bodyFN, strand, param);
-elseif(param.fileType == 'all')
+elseif(param.out == 'all')
     pdb2cmd(pdb_path, bodyFN, strand, param);
     pdb2tif(pdb_path, bodyFN, strand, param);
 end
