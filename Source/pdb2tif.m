@@ -96,6 +96,7 @@ if(strcmp(sysParam.view, 'xy'))
     %fprintf(fid, 'runCommand(''scale 0.8'')\n');
     %fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
+    fprintf(fid, 'runCommand(''center'')\n');
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
 elseif(strcmp(sysParam.view, 'xz'))
     %fprintf(fid, 'runCommand(''window'')\n');
@@ -103,6 +104,7 @@ elseif(strcmp(sysParam.view, 'xz'))
     %fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
+    fprintf(fid, 'runCommand(''center'')\n');
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
 elseif(strcmp(sysParam.view, 'yz'))
     %fprintf(fid, 'runCommand(''window'')\n');
@@ -111,6 +113,7 @@ elseif(strcmp(sysParam.view, 'yz'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
     fprintf(fid, 'runCommand(''turn y -90'')\n');
     fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
+    fprintf(fid, 'runCommand(''center'')\n');
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
 elseif(strcmp(sysParam.view, 'xyz1'))
     %fprintf(fid, 'runCommand(''window'')\n');
@@ -120,6 +123,7 @@ elseif(strcmp(sysParam.view, 'xyz1'))
     fprintf(fid, 'runCommand(''turn y -45'')\n');
     fprintf(fid, 'runCommand(''turn z 35'')\n');
     fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
+    fprintf(fid, 'runCommand(''center'')\n');
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
 elseif(strcmp(sysParam.view, 'xyz2'))
     %fprintf(fid, 'runCommand(''window'')\n');
@@ -127,6 +131,7 @@ elseif(strcmp(sysParam.view, 'xyz2'))
     %fprintf(fid, 'runCommand(''wait'')\n');
     fprintf(fid, 'runCommand(''turn x 60'')\n');
     fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
+    fprintf(fid, 'runCommand(''center'')\n');
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
 elseif(strcmp(sysParam.view, 'xyz'))
     %fprintf(fid, 'runCommand(''window'')\n');
@@ -136,6 +141,7 @@ elseif(strcmp(sysParam.view, 'xyz'))
     fprintf(fid, 'runCommand(''turn y -120'')\n');
     fprintf(fid, 'runCommand(''turn x 35'')\n');
     fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
+    fprintf(fid, 'runCommand(''center'')\n');
     fprintf(fid, 'runCommand(''copy file %s tiff dpi 300 supersample 3'')\n', strrep(tif_path,'\','/'));
 end
 fprintf(fid, 'runCommand(''wait'')\n');

@@ -95,7 +95,7 @@ elseif(strcmp(sysParam.view, 'xyz'))
     fprintf(fid, 'runCommand(''turn x 35'')\n');
 end
 fprintf(fid, 'runCommand(''scale %f'')\n', sysParam.scale);
-
+fprintf(fid, 'runCommand(''center'')\n');
 fclose(fid);
 
 %%
