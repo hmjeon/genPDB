@@ -21,19 +21,6 @@ for i = 1 : 2
 end
 
 param.StrandColor = [190 190 190;  86 180 233];
-    
-if(param.cndo == 2)
-    % Read view
-    param.view = strtrim(fgetl(fid));
-    ss = strtrim(fgetl(fid));
-    
-    % Read scale
-    param.scale = fscanf(fid,'%f/n');
-    ss = strtrim(fgetl(fid));
-
-    % Read RGB
-    param.StrandColor(2,:) = fscanf(fid,'%i %i %i\n');
-end
 
 % Read the field 'dnaTop'
 ss = strtrim(fgetl(fid));
@@ -41,30 +28,15 @@ assert(strcmp(ss(1:6), 'dnaTop'));
 ss = strtrim(fgetl(fid));
 while(~isempty(ss));
 
-    if(param.cndo == 1)
-        a = strsplit(ss, ',');
-        assert(numel(a) == 6);
-        conn = cat(1, conn, [str2double(a{1}), ...
+    a = strsplit(ss, ',');
+    assert(numel(a) == 6);
+    conn = cat(1, conn, [str2double(a{1}), ...
                          str2double(a{2}), ...
                          str2double(a{3}), ...
                          str2double(a{4}), ...
                          str2double(a{5})]);
-        seq = cat(1, seq, a(6));
-        ss  = strtrim(fgetl(fid));
-    end
-
-    if(param.cndo == 2)
-        a = strsplit(ss, ',');
-        assert(numel(a) == 7);
-        conn = cat(1, conn, [str2double(a{1}), ...
-                         str2double(a{2}), ...
-                         str2double(a{3}), ...
-                         str2double(a{4}), ...
-                         str2double(a{5})]);
-        seq   = cat(1, seq, a(6));
-        types = cat(1, types, str2double(a{7}));
-        ss    = strtrim(fgetl(fid));
-    end
+    seq = cat(1, seq, a(6));
+    ss  = strtrim(fgetl(fid));
 end
 
 % Read the field 'dNode'
@@ -118,8 +90,27 @@ while(~isempty(ss))
     ss = strtrim(ss);
 end
 
-fclose(fid);
+if(param.cndo == 2)
+    % Read view
+    param.view = strtrim(fgetl(fid));
+    ss = strtrim(fgetl(fid));
+    
+    % Read scale
+    param.scale = fscanf(fid,'%f/n');
+    ss = strtrim(fgetl(fid));
 
+    % Read RGB
+    r = fscanf(fid,'%f/n');
+    g = fscanf(fid,'%f/n');
+    b = fscanf(fid,'%f/n');
+    param.StrandColor(2,:) = [r g b];
+    ss = strtrim(fgetl(fid));
+    
+    for i = 1 : size(conn,1)
+        types(i) = fscanf(fid,'%f/n');
+    end
+end
+fclose(fid);
 
 %% Generate the MATLAB script 'dnaInfo'
 n_nt = size(conn,1);
