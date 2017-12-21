@@ -41,9 +41,29 @@ fprintf(fid, 'runCommand(''set projection %s'')\n', sysParam.proj);
 % Use the new rendering
 RGB_scaf = sysParam.StrandColor(1,:)/255;
 RGB_stap = sysParam.StrandColor(2,:)/255;
-            
-strandColorList  = [184 5 108; 247 67 8; 3 182 162; 247 147 30; 204 0 0; 87 187 0; 0 114 0; 115 0 222];
-strandColorList1 = ['#b8056c'; '#f74308'; '#03b6a2'; '#f7931e'; '#cc0000'; '#57bb00'; '#007200'; '#7300de'];
+
+%tan 				#d2b48c 	210 180 140
+%salmon 			#fa8072 	250 128 114
+%orange 			#ff7f00 	255 127 0
+%gold 				#ffd700 	255 215 0
+%dark green 		#006400 	0  	100 0
+%dark cyan 			#008b8b 	0   139 139
+%medium purple 		#9370db 	147 112 219
+%rosy brown 		#bc8f8f 	188 143 143
+%dark slate gray 	#2f4f4f 	47  79  79
+%dark magenta 		#8b008b 	139 0   139
+%sea green 			#2e8b57 	46  139 87
+%olive drab 		#6b8e23 	107 142 35
+%goldenrod 			#daa520 	218 165 32
+%firebrick 			#b22222 	178 34  34
+%sienna 			#a0522d 	160 82  45
+%dark slate blue 	#483d8b 	72  61  139
+
+strandColorList  = [210 180 140; 250 128 114; 255 127 0; 255 215 0; 0 100 0; 0 139 139; 147 112 219; 188 143 143; 47 79 79; 139 0 139; 46 139 87; 107 142 35; 218 165 32; 178 34 34; 160 82 45; 72 61 139];
+strandColorList1 = ['#d2b48c'; '#fa8072'; '#ff7f00'; '#ffd700'; '#006400'; '#008b8b'; '#9370db'; '#bc8f8f'; '#2f4f4f'; '#8b008b'; '#2e8b57'; '#6b8e23'; '#daa520'; '#b22222'; '#a0522d'; '#483d8b'];
+
+%strandColorList  = [184 5 108; 247 67 8; 3 182 162; 247 147 30; 204 0 0; 87 187 0; 0 114 0; 115 0 222];
+%strandColorList1 = ['#b8056c'; '#f74308'; '#03b6a2'; '#f7931e'; '#cc0000'; '#57bb00'; '#007200'; '#7300de'];
 
 nColor = size(strandColorList,1);
 nStrand = numel(strand);
@@ -75,8 +95,8 @@ for i = 1:numel(strand)
             RGB1 = '#0066cc';
         elseif(strcmp(sysParam.color, 'multiple') && strand(i).types == 1)
             % Staples
-            RGB  = strandColor(i,:)/255;
-            RGB1 = strandColor1(i,:);
+            RGB  = strandColor(i-1,:)/255;
+            RGB1 = strandColor1(i-1,:);
         end
     end
     if(sysParam.type == 'molmap')
