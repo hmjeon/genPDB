@@ -12,7 +12,7 @@ param.chi_opt = '--silent --script';
 
 param.size     = [800 800];
 param.proj     = 'orthographic';    % [orthographic | perspective]
-param.color    = 'multiple';         % [defined | multiple]
+param.color    = 'defined';         % [defined | multiple | two]
 param.out      = 'all';             % cmd / tif / all
 param.type     = 'molmap'           % molmap or ribbon
 param.view     = 'xy';              % Viewpoints, xy, yz, xyz

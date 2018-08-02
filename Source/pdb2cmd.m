@@ -84,6 +84,16 @@ for i = 1:numel(strand)
             % Staples
             RGB  = strandColor(i-1,:)/255;
             RGB1 = strandColor1(i-1,:);
+        elseif(strcmp(sysParam.color, 'two') && strand(i).types == 0)
+            % Scaffold
+            RGB  = [0, 114, 178]/255;
+            RGB1 = '#0072B2';
+        elseif(strcmp(sysParam.color, 'two') && strand(i).types == 1)
+            % Staples
+            RGB  = [213, 94, 0]/255;
+            RGB1 = '#D55E00';
+            %RGB  = [230, 159, 0]/255;
+            %RGB1 = '#E69F00';
         end
     end
     if(sysParam.type == 'molmap')
