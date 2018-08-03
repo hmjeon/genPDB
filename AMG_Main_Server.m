@@ -6,13 +6,13 @@ close   all;
 addpath Source
 
 %% Set parameters for rendering resolution and Chimera environments
-param.chi_exe = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
-param.chi_win = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
+param.chi_exe = '"/cm/shared/hl-Chimera/bin/chimera"';
+param.chi_win = '"/cm/shared/hl-Chimera/bin/chimera"';
 param.chi_opt = '--silent --script';
 
 param.size     = [800 800];
 param.proj     = 'orthographic';    % [orthographic | perspective]
-param.color    = 'defined';         % [defined | multiple | two]
+param.color    = 'multiple';        % [defined | multiple | two]
 param.out      = 'all';             % cmd / tif / all
 param.type     = 'molmap'           % molmap or ribbon
 param.view     = 'xy';              % Viewpoints
@@ -29,9 +29,8 @@ name_prob = ReadProb_Server;
 %% Step 6. Generate the atomic model
 for i = 1 : numel(name_prob)
     tic;
-    disp(strcat('     # Problem name : ', name_prob{i}))
-    path_input{i}  = strcat('Input/', name_prob{i});
-    path_input{i}  = fullfile(path_input{i}, strcat(name_prob{i}, '.cndo'));
+    disp(strcat('     # Problem name : ', name_prob{i}));
+    path_input{i}  = fullfile(strcat(strcat('Input/', name_prob{i}),'.cndo'));
     path_output{i} = strcat('Output/', name_prob{i});
     main_cndo2pdb(path_input{i}, path_output{i}, param);
     toc
