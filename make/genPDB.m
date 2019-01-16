@@ -43,7 +43,7 @@ param.chi_opt = '--silent --script';
 param.size     = [800 800];
 param.proj     = 'orthographic';    % [orthographic | perspective]
 param.color    = 'defined';         % [defined | multiple | two]
-param.out      = 'cmd';             % cmd / tif / all
+param.out      = 'all';             % cmd / tif / all
 param.type     = 'molmap';          % molmap or ribbon
 param.view     = 'xy';              % Viewpoints, xy, yz, xyz
 param.scale    = 1.0;               % Scale
@@ -66,14 +66,29 @@ for i = 1 : numel(name_prob)
     tic;
     disp(strcat('     # Problem name    :  ', name_prob{i}));
 
+    % Input folder
     if(param.list == 0)
-        path_input{i}  = fullfile('cndo\', strcat(name_prob{i}, '.cndo'));
+        if ispc
+            path_input{i}  = fullfile('cndo\', strcat(name_prob{i}, '.cndo'));
+        else
+            path_input{i}  = fullfile('cndo/', strcat(name_prob{i}, '.cndo'));
+        end
     else
-        path_input{i}  = strcat('cndo\', name_prob{i});
+        if ispc
+            path_input{i}  = strcat('cndo\', name_prob{i});
+        else
+            path_input{i}  = strcat('cndo/', name_prob{i});
+        end
         path_input{i}  = fullfile(path_input{i}, strcat(name_prob{i}, '_16.cndo'));
     end
 
-    path_output{i} = strcat('outputs\', name_prob{i});
+    % Output folder
+    if ispc
+        path_output{i} = strcat('outputs\', name_prob{i});
+    else
+        path_output{i} = strcat('outputs/', name_prob{i});
+    end
+
     main_cndo2pdb(path_input{i}, path_output{i}, param);
     toc
 end

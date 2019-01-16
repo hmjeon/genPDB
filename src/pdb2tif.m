@@ -146,6 +146,10 @@ for i = 1:numel(strand)
     end
 end
 
+fprintf(fid, 'runCommand(''~set shadows'')\n');
+fprintf(fid, 'runCommand(''set silhouette'')\n');
+fprintf(fid, 'runCommand(''set silhouetteWidth 1.5'')\n');
+
 % Save as .tif files
 if(strcmp(sysParam.view, 'xy'))
     %fprintf(fid, 'runCommand(''window'')\n');

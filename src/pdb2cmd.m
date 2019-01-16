@@ -133,6 +133,10 @@ for i = 1:numel(strand)
     end
 end
 
+fprintf(fid, 'runCommand(''~set shadows'')\n');
+fprintf(fid, 'runCommand(''set silhouette'')\n');
+fprintf(fid, 'runCommand(''set silhouetteWidth 1.5'')\n');
+
 if(strcmp(sysParam.view, 'xy'))
 elseif(strcmp(sysParam.view, 'xz'))
     fprintf(fid, 'runCommand(''turn x -90'')\n');
