@@ -26,8 +26,11 @@
 %
 clear   all;
 close   all;
-addpath src
-
+if ispc
+    addpath ..\src
+else
+    addpath ../src
+end
 %% Set parameters for rendering resolution and Chimera environments
 if ispc
     param.chi_exe = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
