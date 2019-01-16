@@ -1,2 +1,4 @@
-# DNA-GEN-PDB
-PDB generator from the cndo file format
+# PDBgen
+PDB generator from the CNDO file format
+
+This is the MATLAB script, which was originally written by Keyao Pan and modified by Hyungmin Jun.
