@@ -2,7 +2,7 @@
 % =============================================================================
 %
 % genPDB v1.0
-% Last Updated : 01/14/2019, by Hyungmin Jun (hyungminjun@outlook.com)
+% Last Updated : 01/16/2019, by Hyungmin Jun (hyungminjun@outlook.com)
 %
 %=============================================================================
 %
@@ -26,7 +26,7 @@
 %
 clear   all;
 close   all;
-addpath Source
+addpath src
 
 %% Set parameters for rendering resolution and Chimera environments
 if ispc
@@ -40,8 +40,8 @@ param.chi_opt = '--silent --script';
 param.size     = [800 800];
 param.proj     = 'orthographic';    % [orthographic | perspective]
 param.color    = 'defined';         % [defined | multiple | two]
-param.out      = 'all';             % cmd / tif / all
-param.type     = 'molmap'           % molmap or ribbon
+param.out      = 'cmd';             % cmd / tif / all
+param.type     = 'molmap';          % molmap or ribbon
 param.view     = 'xy';              % Viewpoints, xy, yz, xyz
 param.scale    = 1.0;               % Scale
 param.bulge    = 1;                 % 0 - no bulge, 1 - with bulge
@@ -49,17 +49,28 @@ param.cndo     = 2;                 % cndo format version
 param.trans    = 0.0;               % Transparency (0.0(original) ~ 1.0)
 param.mol_res  = 3;                 % Parameter for molmap
 param.vol_step = 1;                 % Parameter for volume step
+param.list     = 0;                 % 0: single 1:list
 
 %% Read cndo files
-name_prob = readProblem;
+if(param.list == 0)
+    name_prob = {'example'};
+else
+    name_prob = readProblem;
+end
 
 %% Generate the atomic model, PDB
 for i = 1 : numel(name_prob)
     tic;
-    disp(strcat('     # Problem name : ', name_prob{i}))
-    path_input{i}  = strcat('Input\', name_prob{i});
-    path_input{i}  = fullfile(path_input{i}, strcat(name_prob{i}, '.cndo'));
-    path_output{i} = strcat('Output\', name_prob{i});
+    disp(strcat('     # Problem name    :  ', name_prob{i}));
+
+    if(param.list == 0)
+        path_input{i}  = fullfile('cndo\', strcat(name_prob{i}, '.cndo'));
+    else
+        path_input{i}  = strcat('cndo\', name_prob{i});
+        path_input{i}  = fullfile(path_input{i}, strcat(name_prob{i}, '_16.cndo'));
+    end
+
+    path_output{i} = strcat('outputs\', name_prob{i});
     main_cndo2pdb(path_input{i}, path_output{i}, param);
     toc
 end

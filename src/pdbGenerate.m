@@ -1,17 +1,35 @@
+%
+% =============================================================================
+%
+% pdbGenerate
+% Last Updated : 01/14/2019, by Hyungmin Jun (hyungminjun@outlook.com)
+%
+% =============================================================================
+%
+% This is part of genPDB, which converts to the cndo file to
+% the PDB file. The originial script was written by Keyao Pan,
+% https://cando-dna-origami.org/atomic-model-generator/
+% Copyright 2018 Hyungmin Jun. All rights reserved.
+%
+% License - GPL version 3
+% This program is free software: you can redistribute it and/or modify it under
+% the terms of the GNU General Public License as published by the Free Software
+% Foundation, either version 3 of the License, or any later version.
+% This program is distributed in the hope that it will be useful, but WITHOUT
+% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+% FOR A PARTICULAR PURPOSE. See the GNU General Public License
+% for more details.
+% You should have received a copy of the GNU General Public License along with
+% this program. If not, see <http://www.gnu.org/licenses/>.
+%
+% -----------------------------------------------------------------------------
+%
 function pdbFinal = pdbGenerate(strand)
-
 %% Parameters
-if ispc
-    refName_A = 'refs\AAA.pdb';
-    refName_G = 'refs\GGG.pdb';
-    refName_C = 'refs\CCC.pdb';
-    refName_T = 'refs\TTT.pdb';
-else
-    refName_A = 'refs/AAA.pdb';
-    refName_G = 'refs/GGG.pdb';
-    refName_C = 'refs/CCC.pdb';
-    refName_T = 'refs/TTT.pdb';
-end if
+refName_A = 'AAA.pdb';
+refName_G = 'GGG.pdb';
+refName_C = 'CCC.pdb';
+refName_T = 'TTT.pdb';
 
 %% Read 8 reference structures:
 % - A running forward (32 atoms)
@@ -39,9 +57,6 @@ for i = 1:nStrand
     pdbFinal.Model.Atom = [pdbFinal.Model.Atom, pdbStruct.Model.Atom];
     pdbFinal.Model.Terminal = [pdbFinal.Model.Terminal, pdbStruct.Model.Terminal];
 end
-
-
-
 
 %% Rotate and translate reference structures:
 % nScafTourLine = length(deformList.scafTourLine);
@@ -107,8 +122,7 @@ end
 
 end
 
-
-% Build the PDB structure for one tour. Flag = 0--scaffold or 1--staple
+%% Build the PDB structure for one tour. Flag = 0--scaffold or 1--staple
 function [pdbStruct, firstAtomSerNo_out] = pdbTour(strand, ...
                                                    refStruct, firstAtomSerNo_in, flag)
 assert(numel(strand) == 1);
@@ -206,7 +220,6 @@ pdbStruct.Model.Terminal.resSeq = currentAtom.resSeq;
 pdbStruct.Model.Terminal.iCode = currentAtom.iCode;
 end
 
-
 % Read reference structures
 function [pdbStruct_for,pdbStruct_rev] = readReference(filename)
 % In the reference structure:
@@ -259,13 +272,11 @@ end
 
 end
 
-
 % Rotation about X-axis
 function R = Rx(deg)
 rad = deg/180*pi;
 R = [1 0 0; 0 cos(rad) -sin(rad); 0 sin(rad) cos(rad)];
 end
-
 
 % Rotation about Y-axis
 function R = Ry(deg)

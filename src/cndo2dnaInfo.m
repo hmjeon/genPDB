@@ -1,3 +1,29 @@
+%
+% =============================================================================
+%
+% cndo2dnaInfo
+% Last Updated : 01/14/2019, by Hyungmin Jun (hyungminjun@outlook.com)
+%
+% =============================================================================
+%
+% This is part of genPDB, which converts to the cndo file to
+% the PDB file. The originial script was written by Keyao Pan,
+% https://cando-dna-origami.org/atomic-model-generator/
+% Copyright 2018 Hyungmin Jun. All rights reserved.
+%
+% License - GPL version 3
+% This program is free software: you can redistribute it and/or modify it under
+% the terms of the GNU General Public License as published by the Free Software
+% Foundation, either version 3 of the License, or any later version.
+% This program is distributed in the hope that it will be useful, but WITHOUT
+% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+% FOR A PARTICULAR PURPOSE. See the GNU General Public License
+% for more details.
+% You should have received a copy of the GNU General Public License along with
+% this program. If not, see <http://www.gnu.org/licenses/>.
+%
+% -----------------------------------------------------------------------------
+%
 function [dnaInfo, param] = cndo2dnaInfo(cndo_FN, param)
 
 tol = 1e-10;
@@ -92,12 +118,12 @@ end
 
 if(param.cndo == 2)
     % Read view
-    param.view = strtrim(fgetl(fid));
-    ss = strtrim(fgetl(fid));
+    %param.view = strtrim(fgetl(fid));
+    %ss = strtrim(fgetl(fid));
     
     % Read scale
-    param.scale = fscanf(fid,'%f/n');
-    ss = strtrim(fgetl(fid));
+    %param.scale = fscanf(fid,'%f/n');
+    %ss = strtrim(fgetl(fid));
 
     % Read RGB
     r = fscanf(fid,'%f/n');
