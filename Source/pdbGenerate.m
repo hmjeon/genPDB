@@ -1,11 +1,17 @@
 function pdbFinal = pdbGenerate(strand)
 
 %% Parameters
-refName_A = 'AAA.pdb';
-refName_G = 'GGG.pdb';
-refName_C = 'CCC.pdb';
-refName_T = 'TTT.pdb';
-
+if ispc
+    refName_A = 'refs\AAA.pdb';
+    refName_G = 'refs\GGG.pdb';
+    refName_C = 'refs\CCC.pdb';
+    refName_T = 'refs\TTT.pdb';
+else
+    refName_A = 'refs/AAA.pdb';
+    refName_G = 'refs/GGG.pdb';
+    refName_C = 'refs/CCC.pdb';
+    refName_T = 'refs/TTT.pdb';
+end if
 
 %% Read 8 reference structures:
 % - A running forward (32 atoms)

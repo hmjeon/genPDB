@@ -1,0 +1,65 @@
+%
+% =============================================================================
+%
+% genPDB v1.0
+% Last Updated : 01/14/2019, by Hyungmin Jun (hyungminjun@outlook.com)
+%
+%=============================================================================
+%
+% genPDB is an open-source software, which converts to the cndo file to
+% the PDB file. The originial script was written by Keyao Pan,
+% https://cando-dna-origami.org/atomic-model-generator/
+% Copyright 2018 Hyungmin Jun. All rights reserved.
+%
+% License - GPL version 3
+% This program is free software: you can redistribute it and/or modify it under
+% the terms of the GNU General Public License as published by the Free Software
+% Foundation, either version 3 of the License, or any later version.
+% This program is distributed in the hope that it will be useful, but WITHOUT
+% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+% FOR A PARTICULAR PURPOSE. See the GNU General Public License
+% for more details.
+% You should have received a copy of the GNU General Public License along with
+% this program. If not, see <http://www.gnu.org/licenses/>.
+%
+%-----------------------------------------------------------------------------
+%
+clear   all;
+close   all;
+addpath Source
+
+%% Set parameters for rendering resolution and Chimera environments
+if ispc
+    param.chi_exe = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
+else
+    param.chi_exe = '"/cm/shared/hl-Chimera/bin/chimera"';
+end
+param.chi_cmd = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
+param.chi_opt = '--silent --script';
+
+param.size     = [800 800];
+param.proj     = 'orthographic';    % [orthographic | perspective]
+param.color    = 'defined';         % [defined | multiple | two]
+param.out      = 'all';             % cmd / tif / all
+param.type     = 'molmap'           % molmap or ribbon
+param.view     = 'xy';              % Viewpoints, xy, yz, xyz
+param.scale    = 1.0;               % Scale
+param.bulge    = 1;                 % 0 - no bulge, 1 - with bulge
+param.cndo     = 2;                 % cndo format version
+param.trans    = 0.0;               % Transparency (0.0(original) ~ 1.0)
+param.mol_res  = 3;                 % Parameter for molmap
+param.vol_step = 1;                 % Parameter for volume step
+
+%% Read cndo files
+name_prob = readProblem;
+
+%% Generate the atomic model, PDB
+for i = 1 : numel(name_prob)
+    tic;
+    disp(strcat('     # Problem name : ', name_prob{i}))
+    path_input{i}  = strcat('Input\', name_prob{i});
+    path_input{i}  = fullfile(path_input{i}, strcat(name_prob{i}, '.cndo'));
+    path_output{i} = strcat('Output\', name_prob{i});
+    main_cndo2pdb(path_input{i}, path_output{i}, param);
+    toc
+end

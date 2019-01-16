@@ -135,7 +135,7 @@ fclose(fid);
 cmd_path = fullfile(work_dir, strcat(bodyFN, '.cmd'));
 fid = fopen(cmd_path, 'w');
 fprintf(fid,'@echo off\n');
-fprintf(fid, '%s --silent --script %s\n', strrep(sysParam.chi_win,'\','/'), strcat(bodyFN, '.py'));
+fprintf(fid, '%s --silent --script %s\n', strrep(sysParam.chi_cmd,'\','/'), strcat(bodyFN, '.py'));
 fclose(fid);
 
 end
