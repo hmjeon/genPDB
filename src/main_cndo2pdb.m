@@ -40,7 +40,7 @@ clear dnaInfo
 
 
 %% Render the CAD design
-render_CAD(fullfile(work_DIR, strcat(bodyFN, '.bild')), dNode, triad, zeros(0,2), zeros(0,2));
+renderCAD(fullfile(work_DIR, strcat(bodyFN, '.bild')), dNode, triad, zeros(0,2), zeros(0,2));
 
 
 %% Build strands

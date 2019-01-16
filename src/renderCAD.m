@@ -1,4 +1,4 @@
-function [] = render_CAD(filename, dNode, triad, scaf_xover, stap_xover)
+function [] = renderCAD(filename, dNode, triad, scaf_xover, stap_xover)
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

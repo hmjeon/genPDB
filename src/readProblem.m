@@ -2,7 +2,7 @@ function name_prob = readProblem
 
 
 %% Read the file
-fid   = fopen('list_local.txt');
+fid   = fopen('list.txt');
 count = 0;
 
 % Read problem list
