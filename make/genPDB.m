@@ -28,6 +28,13 @@ function error = genPDB(inDIR, outDIR, inName, inOut)
 close all;
 error = 1;
 
+% Set path
+if ispc
+    addpath ..\src
+else
+    addpath ../src
+end
+
 %% Parameter setting
 optProj  = 'orthographic';      % [orthographic | perspective]
 optColor = 'defined';           % [defined | multiple | two]
@@ -47,13 +54,6 @@ if ispc
     param.chi_exe = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
 else
     param.chi_exe = '"/cm/shared/hl-Chimera/bin/chimera"';
-end
-
-%% Set path
-if ispc
-    addpath ..\src
-else
-    addpath ../src
 end
 
 %% Set input arguments
