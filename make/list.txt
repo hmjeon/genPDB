@@ -1,2 +1,0 @@
-01_Hexagon_Tri_6HB_42bp
-02_Hexagon_Hole_6HB_42bp

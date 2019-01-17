@@ -1,3 +1,4 @@
+function error = genPDB(inDIR, outDIR, inName, inOut)
 %
 % =============================================================================
 %
@@ -24,42 +25,71 @@
 %
 %-----------------------------------------------------------------------------
 %
-clear   all;
-close   all;
-if ispc
-    addpath ..\src
+close all;
+error = 1;
+
+%% Parameter setting
+optProj  = 'orthographic';      % [orthographic | perspective]
+optColor = 'defined';           % [defined | multiple | two]
+optOut   = 'all';               % [cmd | tif | all]
+OptType  = 'molmap';            % [molmap | ribbon]
+optView  = 'xy';                % [xy | yz | xyz]
+optList  = 0;                   % 0: single 1:list
+
+% Read cndo files
+if(optList == 0)
+    name_prob = {'ex1'};
 else
-    addpath ../src
+    name_prob = readProblem;
 end
-%% Set parameters for rendering resolution and Chimera environments
+
 if ispc
     param.chi_exe = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
 else
     param.chi_exe = '"/cm/shared/hl-Chimera/bin/chimera"';
 end
-param.chi_cmd = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
-param.chi_opt = '--silent --script';
 
+%% Set path
+if ispc
+    addpath ..\src
+else
+    addpath ../src
+end
+
+%% Set input arguments
+switch nargin
+    case 0
+        if ispc
+            inputDIR  = 'cndo\';
+            outputDIR = 'output\';
+        else
+            inputDIR  = 'cndo/';
+            outputDIR = 'output/';
+        end
+    case 4
+        inputDIR  = inDIR;
+        outputDIR = outDIR;
+        name_prob = {inName};
+        optOut    = inOut;
+    otherwise
+        return
+end
+
+%% Set parameters for rendering resolution and Chimera environments
+param.chi_opt  = '--silent --script';
+param.chi_cmd  = param.chi_exe;
 param.size     = [800 800];
-param.proj     = 'orthographic';    % [orthographic | perspective]
-param.color    = 'defined';         % [defined | multiple | two]
-param.out      = 'all';             % cmd / tif / all
-param.type     = 'molmap';          % molmap or ribbon
-param.view     = 'xy';              % Viewpoints, xy, yz, xyz
+param.proj     = optProj;           % [orthographic | perspective]
+param.color    = optColor;          % [defined | multiple | two]
+param.out      = optOut;            % [cmd | tif | all]
+param.type     = OptType;           % [molmap | ribbon]
+param.view     = optView;           % [xy | yz | xyz]
 param.scale    = 1.0;               % Scale
 param.bulge    = 1;                 % 0 - no bulge, 1 - with bulge
 param.cndo     = 2;                 % cndo format version
 param.trans    = 0.0;               % Transparency (0.0(original) ~ 1.0)
 param.mol_res  = 3;                 % Parameter for molmap
 param.vol_step = 1;                 % Parameter for volume step
-param.list     = 0;                 % 0: single 1:list
-
-%% Read cndo files
-if(param.list == 0)
-    name_prob = {'example'};
-else
-    name_prob = readProblem;
-end
 
 %% Generate the atomic model, PDB
 for i = 1 : numel(name_prob)
@@ -67,28 +97,26 @@ for i = 1 : numel(name_prob)
     disp(strcat('     # Problem name    :  ', name_prob{i}));
 
     % Input folder
-    if(param.list == 0)
-        if ispc
-            path_input{i}  = fullfile('cndo\', strcat(name_prob{i}, '.cndo'));
-        else
-            path_input{i}  = fullfile('cndo/', strcat(name_prob{i}, '.cndo'));
-        end
+    if(optList == 0)
+        path_input{i} = fullfile(inputDIR, strcat(name_prob{i}, '.cndo'));
     else
-        if ispc
-            path_input{i}  = strcat('cndo\', name_prob{i});
-        else
-            path_input{i}  = strcat('cndo/', name_prob{i});
-        end
-        path_input{i}  = fullfile(path_input{i}, strcat(name_prob{i}, '_16.cndo'));
+        path_input{i} = strcat(inputDIR, name_prob{i});
+        path_input{i} = fullfile(path_input{i}, strcat(name_prob{i}, '_16.cndo'));
     end
 
     % Output folder
-    if ispc
-        path_output{i} = strcat('outputs\', name_prob{i});
-    else
-        path_output{i} = strcat('outputs/', name_prob{i});
+    switch nargin
+        case 0
+            path_output{i} = strcat(outputDIR, name_prob{i});
+        case 4
+            path_output{i} = outputDIR;
     end
 
+    % Generate PDB
     main_cndo2pdb(path_input{i}, path_output{i}, param);
     toc
+end
+
+%% error = 0 if there is no issue during converting
+error = 0;
 end
