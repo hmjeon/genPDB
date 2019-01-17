@@ -9,5 +9,5 @@ genPDB v1.0
 	error = genPDB('cndo\','PDB\', 'ex01', 'cmd')
 
 For Linux,
-matlab -nosplash -nodesktop -nodisplay -noawt -r "genPDB('cndo/', 'PDB/', 'ex2', 'all')" > genPDB.log 2>&1 &
+matlab -nosplash -nodesktop -nodisplay -noawt -r "genPDB('cndo/', 'PDB/', 'ex2', 'pdb')" > genPDB.log 2>&1 &
 tail -f genPDB.log

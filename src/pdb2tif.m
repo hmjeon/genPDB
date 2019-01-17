@@ -28,24 +28,29 @@ function [] = pdb2tif(pdb_path, bodyFN, strand, sysParam)
 
 work_dir = fileparts(pdb_path);
 
-if(strcmp(sysParam.view, 'xy'))
-    tif_path = fullfile(work_dir, strcat(bodyFN, '_XY.tif'));
-elseif(strcmp(sysParam.view, 'xz'))
-    tif_path = fullfile(work_dir, strcat(bodyFN, '_XZ.tif'));
-elseif(strcmp(sysParam.view, 'yz'))
-    tif_path = fullfile(work_dir, strcat(bodyFN, '_YZ.tif'));
-elseif(strcmp(sysParam.view, 'xyz1'))
-    tif_path = fullfile(work_dir, strcat(bodyFN, '_XYZ1.tif'));
-elseif(strcmp(sysParam.view, 'xyz2'))
-    tif_path = fullfile(work_dir, strcat(bodyFN, '_XYZ2.tif'));
-elseif(strcmp(sysParam.view, 'xyz'))
-    tif_path = fullfile(work_dir, strcat(bodyFN, '_XYZ.tif'));
-end
+%if(strcmp(sysParam.view, 'xy'))
+%    tif_path = fullfile(work_dir, strcat(bodyFN, '_XY.tif'));
+%elseif(strcmp(sysParam.view, 'xz'))
+%    tif_path = fullfile(work_dir, strcat(bodyFN, '_XZ.tif'));
+%elseif(strcmp(sysParam.view, 'yz'))
+%    tif_path = fullfile(work_dir, strcat(bodyFN, '_YZ.tif'));
+%elseif(strcmp(sysParam.view, 'xyz1'))
+%    tif_path = fullfile(work_dir, strcat(bodyFN, '_XYZ1.tif'));
+%elseif(strcmp(sysParam.view, 'xyz2'))
+%    tif_path = fullfile(work_dir, strcat(bodyFN, '_XYZ2.tif'));
+%elseif(strcmp(sysParam.view, 'xyz'))
+%    tif_path = fullfile(work_dir, strcat(bodyFN, '_XYZ.tif'));
+%end
 
+if(strcmp(sysParam.type, 'molmap'))
+    tif_path = fullfile(work_dir, strcat(bodyFN, '_mol.tif'));
+elseif(strcmp(sysParam.type, 'ribbon'))
+    tif_path = fullfile(work_dir, strcat(bodyFN, '_rib.tif'));
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Generate the UCSF Chimera script
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-chimeraScr = fullfile(work_dir, strcat(bodyFN, '_tif.py'));
+chimeraScr = fullfile(work_dir, strcat(bodyFN, '.py'));
 fid = fopen(chimeraScr, 'w');
 % Import the Python interface
 fprintf(fid,'from chimera import runCommand\n');
@@ -135,7 +140,7 @@ for i = 1:numel(strand)
             %RGB1 = '#E69F00';
         end
     end
-    if(sysParam.type == 'molmap')
+    if(strcmp(sysParam.type, 'molmap'))
         fprintf(fid, 'runCommand(''molmap #0.%d %d'')\n', i, sysParam.mol_res);
         fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step %d transparency %f'')\n',...
             i, RGB(1), RGB(2), RGB(3), sysParam.vol_step, sysParam.trans);
@@ -149,6 +154,8 @@ end
 fprintf(fid, 'runCommand(''~set shadows'')\n');
 fprintf(fid, 'runCommand(''set silhouette'')\n');
 fprintf(fid, 'runCommand(''set silhouetteWidth 1.5'')\n');
+fprintf(fid, 'runCommand(''set subdivision 10.0'')\n');
+fprintf(fid, 'runCommand(''set bgTransparency'')\n');
 
 % Save as .tif files
 if(strcmp(sysParam.view, 'xy'))

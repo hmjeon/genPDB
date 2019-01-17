@@ -39,7 +39,7 @@ end
 optProj  = 'orthographic';      % [orthographic | perspective]
 optColor = 'defined';           % [defined | multiple | two]
 optOut   = 'all';               % [cmd | tif | all]
-OptType  = 'molmap';            % [molmap | ribbon]
+OptType  = 'ribbon';            % [molmap | ribbon]
 optView  = 'xy';                % [xy | yz | xyz]
 optList  = 0;                   % 0: single 1:list
 
@@ -81,8 +81,8 @@ param.chi_cmd  = param.chi_exe;
 param.size     = [800 800];
 param.proj     = optProj;           % [orthographic | perspective]
 param.color    = optColor;          % [defined | multiple | two]
-param.out      = optOut;            % [cmd | tif | all]
-param.type     = OptType;           % [molmap | ribbon]
+param.out      = optOut;            % [pdb | cmd | tif | all]
+param.type     = OptType;           % [molmap | ribbon] - only for tif
 param.view     = optView;           % [xy | yz | xyz]
 param.scale    = 1.0;               % Scale
 param.bulge    = 1;                 % 0 - no bulge, 1 - with bulge

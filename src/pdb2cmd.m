@@ -24,7 +24,7 @@
 %
 % -----------------------------------------------------------------------------
 %
-function [] = pdb2cmd(pdb_path, bodyFN, strand, sysParam)
+function [] = pdb2cmd(pdb_path, bodyFN, strand, sysParam, typeCMD)
 
 work_dir = fileparts(pdb_path);
 
@@ -32,7 +32,12 @@ work_dir = fileparts(pdb_path);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Generate the UCSF Chimera script
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-chimeraScr = fullfile(work_dir, strcat(bodyFN, '.py'));
+if(strcmp(typeCMD, 'molmap'))
+    chimeraScr = fullfile(work_dir, strcat(bodyFN, '_mol.py'));
+elseif(strcmp(typeCMD, 'ribbon'))
+    chimeraScr = fullfile(work_dir, strcat(bodyFN, '_rib.py'));
+end
+
 fid = fopen(chimeraScr, 'w');
 % Import the Python interface
 fprintf(fid,'from chimera import runCommand\n');
@@ -122,11 +127,11 @@ for i = 1:numel(strand)
             %RGB1 = '#E69F00';
         end
     end
-    if(sysParam.type == 'molmap')
+    if(strcmp(typeCMD, 'molmap'))
         fprintf(fid, 'runCommand(''molmap #0.%d %d'')\n', i, sysParam.mol_res);
         fprintf(fid, 'runCommand(''volume #0.%d color %f,%f,%f step %d transparency %f'')\n',...
             i, RGB(1), RGB(2), RGB(3), sysParam.vol_step, sysParam.trans);
-    else
+    elseif(strcmp(typeCMD, 'ribbon'))
         fprintf(fid, 'runCommand(''ribbon #0.%d'')\n', i);
         fprintf(fid, 'runCommand(''ribcolor %s #0.%d'')\n', RGB1, i);
         fprintf(fid, 'runCommand(''transparency %f,r #0.%d'')\n', sysParam.trans*100, i);
@@ -136,6 +141,8 @@ end
 fprintf(fid, 'runCommand(''~set shadows'')\n');
 fprintf(fid, 'runCommand(''set silhouette'')\n');
 fprintf(fid, 'runCommand(''set silhouetteWidth 1.5'')\n');
+fprintf(fid, 'runCommand(''set subdivision 10.0'')\n');
+fprintf(fid, 'runCommand(''set bgTransparency'')\n');
 
 if(strcmp(sysParam.view, 'xy'))
 elseif(strcmp(sysParam.view, 'xz'))
@@ -162,10 +169,19 @@ fclose(fid);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Generate the cmd file
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-cmd_path = fullfile(work_dir, strcat(bodyFN, '.cmd'));
+if(strcmp(typeCMD, 'molmap'))
+    cmd_path = fullfile(work_dir, strcat(bodyFN, '_mol.cmd'));
+elseif(strcmp(typeCMD, 'ribbon'))
+    cmd_path = fullfile(work_dir, strcat(bodyFN, '_rib.cmd'));
+end
 fid = fopen(cmd_path, 'w');
 fprintf(fid,'@echo off\n');
-fprintf(fid, '%s --silent --script %s\n', strrep(sysParam.chi_cmd,'\','/'), strcat(bodyFN, '.py'));
+
+if(strcmp(typeCMD, 'molmap'))
+    fprintf(fid, '%s --silent --script %s\n', strrep(sysParam.chi_cmd,'\','/'), strcat(bodyFN, '_mol.py'));
+elseif(strcmp(typeCMD, 'ribbon'))
+    fprintf(fid, '%s --silent --script %s\n', strrep(sysParam.chi_cmd,'\','/'), strcat(bodyFN, '_rib.py'));
+end
 fclose(fid);
 
 end

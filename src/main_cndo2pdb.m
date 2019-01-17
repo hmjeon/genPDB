@@ -66,7 +66,7 @@ clear dnaInfo
 
 
 %% Render the CAD design
-renderCAD(fullfile(work_DIR, strcat(bodyFN, '.bild')), dNode, triad, zeros(0,2), zeros(0,2));
+%renderCAD(fullfile(work_DIR, strcat(bodyFN, '.bild')), dNode, triad, zeros(0,2), zeros(0,2));
 
 
 %% Build strands
@@ -127,13 +127,17 @@ pdbFinal = pdbGenerate(strand);
 pdbFinal = pdbModify_multimodel(pdbFinal);
 mypdbwrite_v2(pdb_path, pdbFinal);
 
-%% Render the PDB file
-if(param.out == 'cmd')
-    pdb2cmd(pdb_path, bodyFN, strand, param);
-elseif(param.out == 'tif')
+%% Render atomic model
+if(strcmp(param.out,'cmd'))
+    pdb2cmd(pdb_path, bodyFN, strand, param, 'molmap');
+    pdb2cmd(pdb_path, bodyFN, strand, param, 'ribbon');
+elseif(strcmp(param.out, 'tif'))
     pdb2tif(pdb_path, bodyFN, strand, param);
-elseif(param.out == 'all')
-    pdb2cmd(pdb_path, bodyFN, strand, param);
+elseif(strcmp(param.out, 'all'))
+    pdb2cmd(pdb_path, bodyFN, strand, param, 'molmap');
+    pdb2cmd(pdb_path, bodyFN, strand, param, 'ribbon');
     pdb2tif(pdb_path, bodyFN, strand, param);
+else
+    return
 end
 end
