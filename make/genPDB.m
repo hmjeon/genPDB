@@ -39,9 +39,9 @@ end
 optProj  = 'orthographic';      % [orthographic | perspective]
 optColor = 'defined';           % [defined | multiple | two]
 optOut   = 'all';               % [cmd | tif | all]
-OptType  = 'ribbon';            % [molmap | ribbon]
+OptType  = 'molmap';            % [molmap | ribbon]
 optView  = 'xy';                % [xy | yz | xyz]
-optList  = 0;                   % 0: single 1:list
+optList  = 1;                   % 0: single 1:list
 
 % Read cndo files
 if(optList == 0)
