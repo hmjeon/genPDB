@@ -151,11 +151,19 @@ for i = 1:numel(strand)
     end
 end
 
-fprintf(fid, 'runCommand(''~set shadows'')\n');
-fprintf(fid, 'runCommand(''set silhouette'')\n');
-fprintf(fid, 'runCommand(''set silhouetteWidth 1.5'')\n');
-fprintf(fid, 'runCommand(''set subdivision 10.0'')\n');
-fprintf(fid, 'runCommand(''set bgTransparency'')\n');
+if(strcmp(sysParam.type, 'molmap'))
+    fprintf(fid, 'runCommand(''~set shadows'')\n');
+    fprintf(fid, 'runCommand(''set silhouette'')\n');
+    fprintf(fid, 'runCommand(''set silhouetteWidth 1.5'')\n');
+    fprintf(fid, 'runCommand(''set subdivision 10.0'')\n');
+    fprintf(fid, 'runCommand(''set bgTransparency'')\n');
+elseif(strcmp(sysParam.type, 'ribbon'))
+    fprintf(fid, 'runCommand(''~set shadows'')\n');
+    fprintf(fid, 'runCommand(''set silhouette'')\n');
+    fprintf(fid, 'runCommand(''set silhouetteWidth 0.75'')\n');
+    fprintf(fid, 'runCommand(''set subdivision 10.0'')\n');
+    fprintf(fid, 'runCommand(''set bgTransparency'')\n');
+end
 
 % Save as .tif files
 if(strcmp(sysParam.view, 'xy'))

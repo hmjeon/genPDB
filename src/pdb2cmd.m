@@ -138,11 +138,20 @@ for i = 1:numel(strand)
     end
 end
 
-fprintf(fid, 'runCommand(''~set shadows'')\n');
-fprintf(fid, 'runCommand(''set silhouette'')\n');
-fprintf(fid, 'runCommand(''set silhouetteWidth 1.5'')\n');
-fprintf(fid, 'runCommand(''set subdivision 10.0'')\n');
-fprintf(fid, 'runCommand(''set bgTransparency'')\n');
+if(strcmp(typeCMD, 'molmap'))
+    fprintf(fid, 'runCommand(''~set shadows'')\n');
+    fprintf(fid, 'runCommand(''set silhouette'')\n');
+    fprintf(fid, 'runCommand(''set silhouetteWidth 1.5'')\n');
+    fprintf(fid, 'runCommand(''set subdivision 10.0'')\n');
+    fprintf(fid, 'runCommand(''set bgTransparency'')\n');
+elseif(strcmp(typeCMD, 'ribbon'))
+    fprintf(fid, 'runCommand(''~set shadows'')\n');
+    fprintf(fid, 'runCommand(''set silhouette'')\n');
+    fprintf(fid, 'runCommand(''set silhouetteWidth 0.75'')\n');
+    fprintf(fid, 'runCommand(''set subdivision 10.0'')\n');
+    fprintf(fid, 'runCommand(''set bgTransparency'')\n');
+end
+    
 
 if(strcmp(sysParam.view, 'xy'))
 elseif(strcmp(sysParam.view, 'xz'))
