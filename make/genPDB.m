@@ -41,7 +41,7 @@ optColor = 'defined';           % [defined | multiple | two]
 optOut   = 'all';               % [cmd | tif | all]
 OptType  = 'molmap';            % [molmap | ribbon]
 optView  = 'xy';                % [xy | yz | xyz]
-optList  = 1;                   % 0: single 1:list
+optList  = 0;                   % 0: single 1:list
 
 % Read cndo files
 if(optList == 0)
@@ -101,7 +101,7 @@ for i = 1 : numel(name_prob)
         path_input{i} = fullfile(inputDIR, strcat(name_prob{i}, '.cndo'));
     else
         path_input{i} = strcat(inputDIR, name_prob{i});
-        path_input{i} = fullfile(path_input{i}, strcat(name_prob{i}, '_16.cndo'));
+        path_input{i} = fullfile(path_input{i}, strcat(name_prob{i}, '_cndo.cndo'));
     end
 
     % Output folder
