@@ -14,7 +14,10 @@ genPDB v1.0
 	2.4. argument #4 - Output option: pdb, fig, cmd, all
 
 For Linux,
-matlab -nosplash -nodesktop -nodisplay -noawt -r "genPDB('cndo/', 'PDB/', 'ex2', 'pdb')" > genPDB.log 2>&1 &
+/usr/local/MATLAB/R2018b/bin/matlab -nosplash -nodesktop -nodisplay -noawt -r "addpath /home/designer/genPDB/make; addpath /home/designer/genPDB/src; genPDB('../make/cndo/', '../run/PDB/', 'ex1', 'pdb')"
+
+
+> genPDB.log 2>&1 &
 tail -f genPDB.log
 
 
