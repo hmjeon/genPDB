@@ -1,4 +1,4 @@
-function error = genPDB(inDIR, outDIR, inName, inOut)
+function genPDB(inDIR, outDIR, inName, inOut)
 %
 % =============================================================================
 %
@@ -8,7 +8,8 @@ function error = genPDB(inDIR, outDIR, inName, inOut)
 %=============================================================================
 %
 % genPDB is an open-source software, which converts to the cndo file to
-% the PDB file. The originial script was written by Keyao Pan,
+% the PDB file. The originial script was written by Keyao Pan, and modified
+% by Hyungmin Jun. Original source is available in:
 % https://cando-dna-origami.org/atomic-model-generator/
 % Copyright 2018 Hyungmin Jun. All rights reserved.
 %
@@ -26,14 +27,6 @@ function error = genPDB(inDIR, outDIR, inName, inOut)
 %-----------------------------------------------------------------------------
 %
 close all;
-error = 1;
-
-% Set path
-if ispc
-    addpath ..\src
-else
-    addpath ../src
-end
 
 %% Parameter setting
 optProj  = 'orthographic';      % [orthographic | perspective]
@@ -59,6 +52,13 @@ end
 %% Set input arguments
 switch nargin
     case 0
+        % Set path
+        if ispc
+            addpath ..\src
+        else
+            addpath ../src
+        end
+
         if ispc
             inputDIR  = 'cndo\';
             outputDIR = 'output\';
@@ -101,7 +101,7 @@ for i = 1 : numel(name_prob)
         path_input{i} = fullfile(inputDIR, strcat(name_prob{i}, '.cndo'));
     else
         path_input{i} = strcat(inputDIR, name_prob{i});
-        path_input{i} = fullfile(path_input{i}, strcat(name_prob{i}, '_cndo.cndo'));
+        path_input{i} = fullfile(path_input{i}, 'CanDo.cndo');
     end
 
     % Output folder
@@ -117,6 +117,4 @@ for i = 1 : numel(name_prob)
     toc
 end
 
-%% error = 0 if there is no issue during converting
-error = 0;
 end

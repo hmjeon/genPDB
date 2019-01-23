@@ -1,7 +1,7 @@
 # genPDB
 PDB generator from the CNDO file format
 
-genPDB is a open-source software package wrtten by MATLAB, which was originally implemented by Keyao Pan and modified by Hyungmin Jun.
+genPDB is a open-source software package wrtten by MATLAB, which was originally implemented by Keyao Pan and modified by Hyungmin Jun. Original source is available in: https://cando-dna-origami.org/atomic-model-generator/
 genPDB converts the cndo file to the PDB file.
 
 ## Author</br>
