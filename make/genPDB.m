@@ -28,27 +28,6 @@ function genPDB(inDIR, outDIR, inName, inOut)
 %
 close all;
 
-%% Parameter setting
-optProj  = 'orthographic';      % [orthographic | perspective]
-optColor = 'defined';           % [defined | multiple | two]
-optOut   = 'all';               % [cmd | tif | all]
-OptType  = 'molmap';            % [molmap | ribbon]
-optView  = 'xy';                % [xy | yz | xyz]
-optList  = 0;                   % 0: single 1:list
-
-% Read cndo files
-if(optList == 0)
-    name_prob = {'ex1'};
-else
-    name_prob = readProblem;
-end
-
-if ispc
-    param.chi_exe = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
-else
-    param.chi_exe = '"/cm/shared/hl-Chimera/bin/chimera"';
-end
-
 %% Set input arguments
 switch nargin
     case 0
@@ -73,6 +52,27 @@ switch nargin
         optOut    = inOut;
     otherwise
         return
+end
+
+%% Parameter setting
+optProj  = 'orthographic';      % [orthographic | perspective]
+optColor = 'defined';           % [defined | multiple | two]
+optOut   = 'all';               % [cmd | tif | all]
+OptType  = 'molmap';            % [molmap | ribbon]
+optView  = 'xy';                % [xy | yz | xyz]
+optList  = 1;                   % 0: single 1:list
+
+% Read cndo files
+if(optList == 0)
+    name_prob = {'ex1'};
+else
+    name_prob = readProblem;
+end
+
+if ispc
+    param.chi_exe = '"C:\Program Files\Chimera 1.10.2\bin\chimera.exe"';
+else
+    param.chi_exe = '"/cm/shared/hl-Chimera/bin/chimera"';
 end
 
 %% Set parameters for rendering resolution and Chimera environments
@@ -101,7 +101,7 @@ for i = 1 : numel(name_prob)
         path_input{i} = fullfile(inputDIR, strcat(name_prob{i}, '.cndo'));
     else
         path_input{i} = strcat(inputDIR, name_prob{i});
-        path_input{i} = fullfile(path_input{i}, 'CanDo.cndo');
+        path_input{i} = fullfile(path_input{i}, strcat(name_prob{i}, '_CanDo.cndo'));
     end
 
     % Output folder
