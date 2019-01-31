@@ -2,7 +2,7 @@
 % =============================================================================
 %
 % pdb2cmd
-% Last Updated : 01/14/2019, by Hyungmin Jun (hyungminjun@outlook.com)
+% Last Updated : 01/31/2019, by Hyungmin Jun (hyungminjun@outlook.com)
 %
 % =============================================================================
 %
@@ -78,21 +78,23 @@ RGB_stap = sysParam.StrandColor(2,:)/255;
 %sienna 			#a0522d 	160 82  45
 %dark slate blue 	#483d8b 	72  61  139
 
-strandColorList  = [210 180 140; 250 128 114; 255 127 0; 255 215 0; 0 100 0; 0 139 139; 147 112 219; 188 143 143; 47 79 79; 139 0 139; 46 139 87; 107 142 35; 218 165 32; 178 34 34; 160 82 45; 72 61 139];
-strandColorList1 = ['#d2b48c'; '#fa8072'; '#ff7f00'; '#ffd700'; '#006400'; '#008b8b'; '#9370db'; '#bc8f8f'; '#2f4f4f'; '#8b008b'; '#2e8b57'; '#6b8e23'; '#daa520'; '#b22222'; '#a0522d'; '#483d8b'];
+% http://ksrowell.com/blog-visualizing-data/2012/02/02/optimal-colors-for-graphs/
+strandColorList  = [114 147 203; 225 151  76; 132 186  91; 211  94  96; 128 133 133;...
+                    144 103 167; 171 104  87; 204 194  16; 218 124  48;  62 150  81; ...
+                    204  37  41;  83  81  84; 107  76 154; 146  36  40; 148 139  61; 57 106 177];
+strandColorList1 = ['#7293cb'; '#e1974c'; '#84ba5b'; '#d35e60'; '#808585';...
+                    '#9067a7'; '#ab6857'; '#ccc210'; '#da7c30'; '#3e9651';...
+                    '#cc2529'; '#535154'; '#6b4c9a'; '#922428'; '#948b3d'; '#396ab1'];
 
-%strandColorList = [184 5 108; 247 67 8; 3 182 162; 247 147 30; 204 0 0; 87 187 0; 0 114 0; 115 0 222];
-%strandColorList1 = ['#b8056c'; '#f74308'; '#03b6a2'; '#f7931e'; '#cc0000'; '#57bb00'; '#007200'; '#7300de'];
-
-nColor = size(strandColorList,1);
-nStrand = numel(strand);
+nColor      = size(strandColorList,1);
+nStrand     = numel(strand);
 strandColor = zeros(nStrand,3);
-for i = 1:nStrand
-    strandColor(i,:) = strandColorList(mod(i-1,nColor)+1,:);
-    strandColor1(i,:)= strandColorList1(mod(i-1,nColor)+1,:);
+for i = 1: nStrand
+    strandColor(i, :)  = strandColorList(mod(i-1,nColor)+1, :);
+    strandColor1(i, :) = strandColorList1(mod(i-1,nColor)+1, :);
 end
 
-for i = 1:numel(strand)
+for i = 1: numel(strand)
     if(sysParam.cndo == 1)
         if(numel(strand(i).tour) >= 200)
             RGB = RGB_scaf;
@@ -110,8 +112,10 @@ for i = 1:numel(strand)
             RGB1 = '#f7931e';
         elseif(strcmp(sysParam.color, 'multiple') && strand(i).types == 0)
             % Scaffold
-            RGB  = [0, 102, 204]/255;
-            RGB1 = '#0066cc';
+            %RGB  = [0, 102, 204]/255;
+            %RGB1 = '#0066cc';
+            RGB  = [114 147 203]/255;
+            RGB1 = '#7293cb';
         elseif(strcmp(sysParam.color, 'multiple') && strand(i).types == 1)
             % Staples
             RGB  = strandColor(i-1,:)/255;

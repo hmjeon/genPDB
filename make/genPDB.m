@@ -58,9 +58,9 @@ end
 optProj  = 'orthographic';      % [orthographic | perspective]
 optColor = 'defined';           % [defined | multiple | two]
 optOut   = 'all';               % [cmd | tif | all]
-OptType  = 'molmap';            % [molmap | ribbon]
+optType  = 'molmap';            % [molmap | ribbon]
 optView  = 'xy';                % [xy | yz | xyz]
-optList  = 1;                   % 0: single 1:list
+optList  = 0;                   % 0: single 1:list
 
 % Read cndo files
 if(optList == 0)
@@ -82,7 +82,7 @@ param.size     = [800 800];
 param.proj     = optProj;           % [orthographic | perspective]
 param.color    = optColor;          % [defined | multiple | two]
 param.out      = optOut;            % [pdb | cmd | tif | all]
-param.type     = OptType;           % [molmap | ribbon] - only for tif
+param.type     = optType;           % [molmap | ribbon] - only for tif
 param.view     = optView;           % [xy | yz | xyz]
 param.scale    = 1.0;               % Scale
 param.bulge    = 1;                 % 0 - no bulge, 1 - with bulge
