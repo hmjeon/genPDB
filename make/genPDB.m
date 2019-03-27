@@ -2,7 +2,7 @@ function genPDB(inDIR, outDIR, inName, inOut)
 %
 % =============================================================================
 %
-% genPDB v1.0
+% mPDB v1.0
 % Last Updated : 01/16/2019, by Hyungmin Jun (hyungminjun@outlook.com)
 %
 %=============================================================================
@@ -101,7 +101,7 @@ for i = 1 : numel(name_prob)
         path_input{i} = fullfile(inputDIR, strcat(name_prob{i}, '.cndo'));
     else
         path_input{i} = strcat(inputDIR, name_prob{i});
-        path_input{i} = fullfile(path_input{i}, strcat(name_prob{i}, '_CanDo.cndo'));
+        path_input{i} = fullfile(path_input{i}, strcat(name_prob{i}, '.cndo'));
     end
 
     % Output folder

@@ -6,7 +6,7 @@
 %
 % =============================================================================
 %
-% This is part of genPDB, which converts to the cndo file to
+% This is part of mPDB, which converts to the cndo file to
 % the PDB file. The originial script was written by Keyao Pan, and modified
 % by Hyungmin Jun. Original source is available in:
 % https://cando-dna-origami.org/atomic-model-generator/
